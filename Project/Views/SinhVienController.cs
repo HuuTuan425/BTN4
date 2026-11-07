@@ -62,8 +62,32 @@ namespace Controllers
         public bool Xoa(string ma, out string error)
         {
             error = string.Empty;
-            try { using (var cn = AppData.OpenConnection()) using (var cmd = new SqlCommand("DELETE FROM SinhVien WHERE MaSinhVien=@ma", cn)) { cmd.Parameters.AddWithValue("@ma", ma.Trim()); if (cmd.ExecuteNonQuery() == 0) { error = "Không tìm thấy sinh viên cần xóa."; return false; } return true; } }
-            catch (Exception ex) { error = ex.Message; return false; }
+            if (string.IsNullOrWhiteSpace(ma)) { error = "Mã sinh viên không được để trống."; return false; }
+            try
+            {
+                using (var cn = AppData.OpenConnection())
+                using (var transaction = cn.BeginTransaction())
+                {
+                    using (var cmd = new SqlCommand("DELETE FROM DangKyMonHoc WHERE MaSinhVien=@ma", cn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@ma", ma.Trim());
+                        cmd.ExecuteNonQuery();
+                    }
+                    using (var cmd = new SqlCommand("DELETE FROM SinhVien WHERE MaSinhVien=@ma", cn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@ma", ma.Trim());
+                        if (cmd.ExecuteNonQuery() == 0)
+                        {
+                            transaction.Rollback();
+                            error = "Không tìm thấy sinh viên cần xóa.";
+                            return false;
+                        }
+                    }
+                    transaction.Commit();
+                    return true;
+                }
+            }
+            catch (SqlException ex) { error = ex.Message; return false; }
         }
 
         public List<SinhVien> TimGanDung(string ten) { return string.IsNullOrWhiteSpace(ten) ? GetAll() : Query("SELECT * FROM SinhVien WHERE HoTen LIKE @ten ORDER BY MaSinhVien", new SqlParameter("@ten", "%" + ten.Trim() + "%")); }
