@@ -22,9 +22,9 @@ namespace Project
 
         private void UpdateStatistics()
         {
-            lblCardSinhVienValue.Text = AppData.SinhViens.Count.ToString();
-            lblCardMonHocValue.Text = AppData.MonHocs.Count.ToString();
-            lblCardDangKyValue.Text = AppData.DangKys.Count.ToString();
+            lblCardSinhVienValue.Text = new SinhVienController().GetAll().Count.ToString();
+            lblCardMonHocValue.Text = new MonHocController().GetAll().Count.ToString();
+            lblCardDangKyValue.Text = new DangKyMonHocController().GetAll().Count.ToString();
         }
 
         private void Home_Activated(object sender, EventArgs e)

@@ -50,10 +50,10 @@ namespace Project
             int ma;
             if (!int.TryParse(txtMa.Text, out ma)) { MessageBox.Show("Chọn môn học cần sửa."); return; }
             string error;
-            if (controller.SuaSoTiet(ma, (int)nudSoTiet.Value, out error))
+            if (controller.SuaSoTiet(ma, txtTen.Text, (int)nudTinChi.Value, (int)nudSoTiet.Value, out error))
             {
                 RefreshGrid(controller.GetAll());
-                MessageBox.Show("Đã sửa số tiết học.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đã sửa thông tin môn học.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show(error, "Không thể sửa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
@@ -129,6 +129,11 @@ namespace Project
         }
 
         private void pnlHeader_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtMa_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -86,13 +86,31 @@ namespace Project
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
+            txtTimKiem.Clear();
+            RefreshGrid(controller.GetAll());
+            dgvSinhVien.ClearSelection();
             txtMaSinhVien.Clear(); txtHoTen.Clear(); txtEmail.Clear(); txtSoDienThoai.Clear(); txtChuyenNganh.Clear();
-            dtpNgaySinh.Value = DateTime.Today; txtTimKiem.Clear(); txtMaSinhVien.Focus(); RefreshGrid(controller.GetAll());
+            dtpNgaySinh.Value = DateTime.Today;
+            txtMaSinhVien.Focus();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             RefreshGrid(controller.TimGanDung(txtTimKiem.Text));
+        }
+
+        private void dgvSinhVien_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvSinhVien.SelectedRows.Count == 0) return;
+            Models.SinhVien sinhVien = dgvSinhVien.SelectedRows[0].DataBoundItem as Models.SinhVien;
+            if (sinhVien == null) return;
+
+            txtMaSinhVien.Text = sinhVien.MaSinhVien;
+            txtHoTen.Text = sinhVien.HoTen;
+            dtpNgaySinh.Value = sinhVien.NgaySinh;
+            txtEmail.Text = sinhVien.Email;
+            txtSoDienThoai.Text = sinhVien.SoDienThoai;
+            txtChuyenNganh.Text = sinhVien.ChuyenNganh;
         }
 
         private void ShowStudents(System.Collections.Generic.List<Models.SinhVien> students, string title)
@@ -105,5 +123,15 @@ namespace Project
         private void lblSoDienThoai_Click(object sender, EventArgs e) { }
         private void txtHoTen_TextChanged(object sender, EventArgs e) { }
         private void txtSoDienThoai_TextChanged(object sender, EventArgs e) { }
+
+        private void pnlHeader_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void SinhVien_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

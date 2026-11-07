@@ -24,13 +24,20 @@ namespace Project
 
         private void btnTimSinhVien_Click(object sender, EventArgs e)
         {
-            RefreshGrid(controller.TimTheoMaSinhVien(txtMaSinhVienTim.Text));
+            var rows = controller.TimTheoMaSinhVien(txtMaSinhVienTim.Text);
+            RefreshGrid(rows);
+            if (rows.Count == 0) MessageBox.Show("Không tìm thấy đăng ký theo mã sinh viên đã nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnTimMonHoc_Click(object sender, EventArgs e)
         {
             int ma;
-            if (int.TryParse(txtMaMonHocTim.Text, out ma)) RefreshGrid(controller.TimTheoMaMonHoc(ma));
+            if (int.TryParse(txtMaMonHocTim.Text, out ma))
+            {
+                var rows = controller.TimTheoMaMonHoc(ma);
+                RefreshGrid(rows);
+                if (rows.Count == 0) MessageBox.Show("Không tìm thấy đăng ký theo mã môn học đã nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             else MessageBox.Show("Mã môn học không hợp lệ.");
         }
 
@@ -77,15 +84,23 @@ namespace Project
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            txtMaSinhVien.Clear(); txtMaMonHoc.Clear(); txtMaDangKy.Clear(); txtMaSinhVienTim.Clear(); txtMaMonHocTim.Clear(); lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; RefreshGrid(controller.GetAll());
+            txtMaSinhVien.Clear(); txtMaMonHoc.Clear(); txtMaDangKy.Clear(); txtMaSinhVienTim.Clear(); txtMaMonHocTim.Clear(); ClearMonHocPreview(); RefreshGrid(controller.GetAll());
         }
 
         private void txtMaMonHoc_TextChanged(object sender, EventArgs e)
         {
             int maMonHoc;
-            if (!int.TryParse(txtMaMonHoc.Text.Trim(), out maMonHoc)) { lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; return; }
-            Models.MonHoc mh = AppData.MonHocs.FirstOrDefault(x => x.MaMonHoc == maMonHoc); if (mh == null) { lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; return; }
+            if (!int.TryParse(txtMaMonHoc.Text.Trim(), out maMonHoc)) { ClearMonHocPreview(); return; }
+            Models.MonHoc mh = new MonHocController().TimTheoMa(maMonHoc); if (mh == null) { ClearMonHocPreview(); return; }
             lblMaMonHocValue.Text = mh.MaMonHoc.ToString(); lblTinChiValue.Text = mh.SoTinChi.ToString(); lblSoTietValue.Text = mh.SoTietHoc.ToString();
+        }
+
+        private void ClearMonHocPreview()
+        {
+            // Keep the placeholder visible both at design time and before a valid subject is selected.
+            lblMaMonHocValue.Text = "-";
+            lblTinChiValue.Text = "-";
+            lblSoTietValue.Text = "-";
         }
 
         private void dgvDangKy_SelectionChanged(object sender, EventArgs e)
