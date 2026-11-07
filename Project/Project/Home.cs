@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Controllers;
+using Models;
 
 namespace Project
 {
@@ -15,6 +17,19 @@ namespace Project
         public Home()
         {
             InitializeComponent();
+            UpdateStatistics();
+        }
+
+        private void UpdateStatistics()
+        {
+            lblCardSinhVienValue.Text = AppData.SinhViens.Count.ToString();
+            lblCardMonHocValue.Text = AppData.MonHocs.Count.ToString();
+            lblCardDangKyValue.Text = AppData.DangKys.Count.ToString();
+        }
+
+        private void Home_Activated(object sender, EventArgs e)
+        {
+            UpdateStatistics();
         }
 
         private void btnSinhVien_Click(object sender, EventArgs e)
@@ -43,7 +58,17 @@ namespace Project
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            Close();
+            Application.Exit();
+        }
+
+        private void Home_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlCardDangKy_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

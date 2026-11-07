@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Controllers;
 using Models;
@@ -13,19 +14,12 @@ namespace Project
         public DangKyMonHoc()
         {
             InitializeComponent();
-            LoadCombos();
             RefreshGrid(controller.GetAll());
         }
 
         private void btnBackHome_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void LoadCombos()
-        {
-            cboSinhVien.DataSource = null; cboSinhVien.DataSource = AppData.SinhViens.ToList(); cboSinhVien.DisplayMember = "HoTen"; cboSinhVien.ValueMember = "MaSinhVien"; cboSinhVien.SelectedIndex = -1;
-            cboMonHoc.DataSource = null; cboMonHoc.DataSource = AppData.MonHocs.ToList(); cboMonHoc.DisplayMember = "TenMonHoc"; cboMonHoc.ValueMember = "MaMonHoc"; cboMonHoc.SelectedIndex = -1;
         }
 
         private void btnTimSinhVien_Click(object sender, EventArgs e)
@@ -50,31 +44,61 @@ namespace Project
 
         private void btnSinhVienMuonNhat_Click(object sender, EventArgs e) { ShowRegistrations(controller.TimSinhVienDangKyMuonNhat(), "Sinh viên đăng ký muộn nhất"); }
 
-        private void RefreshGrid(object data) { dgvDangKy.DataSource = null; dgvDangKy.DataSource = data; }
+        private void RefreshGrid(object data)
+        {
+            dgvDangKy.DataSource = null;
+            dgvDangKy.DataSource = data;
+            if (dgvDangKy.Columns.Count > 0)
+            {
+                dgvDangKy.Columns["MaDangKy"].HeaderText = "Mã đăng ký";
+                dgvDangKy.Columns["MaSinhVien"].HeaderText = "Mã SV";
+                dgvDangKy.Columns["HoTen"].HeaderText = "Họ tên sinh viên";
+                dgvDangKy.Columns["MaMonHoc"].HeaderText = "Mã môn";
+                dgvDangKy.Columns["TenMonHoc"].HeaderText = "Tên môn";
+                dgvDangKy.Columns["ThoiGianDangKy"].HeaderText = "Thời gian đăng ký";
+            }
+        }
 
         private void btnDangKy_Click(object sender, EventArgs e)
         {
-            if (cboSinhVien.SelectedIndex < 0 || cboMonHoc.SelectedIndex < 0) { MessageBox.Show("Vui lòng chọn sinh viên và môn học.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
-            Models.SinhVien sv = cboSinhVien.SelectedItem as Models.SinhVien; Models.MonHoc mh = cboMonHoc.SelectedItem as Models.MonHoc;
-            string error; if (controller.Them(sv.MaSinhVien, mh.MaMonHoc, out error)) { RefreshGrid(controller.GetAll()); MessageBox.Show("Đã đăng ký môn học."); } else MessageBox.Show(error, "Không thể đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            string maSinhVien = txtMaSinhVien.Text.Trim();
+            int maMonHoc;
+            if (!Regex.IsMatch(maSinhVien, "^[A-Za-z0-9]+$")) { MessageBox.Show("Mã sinh viên không hợp lệ.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+            if (!int.TryParse(txtMaMonHoc.Text.Trim(), out maMonHoc)) { MessageBox.Show("Mã môn học không hợp lệ.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+            string error; if (controller.Them(maSinhVien, maMonHoc, out error)) { RefreshGrid(controller.GetAll()); MessageBox.Show("Đã đăng ký môn học."); } else MessageBox.Show(error, "Không thể đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnHuyDangKy_Click(object sender, EventArgs e)
         {
-            if (dgvDangKy.SelectedRows.Count == 0) { MessageBox.Show("Vui lòng chọn bản đăng ký cần hủy."); return; }
-            DangKyDisplay row = dgvDangKy.SelectedRows[0].DataBoundItem as DangKyDisplay; if (row == null) return;
-            string error; if (controller.Xoa(row.MaDangKy, out error)) { RefreshGrid(controller.GetAll()); MessageBox.Show("Đã xóa bản đăng ký."); } else MessageBox.Show(error, "Không thể xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            int maDangKy;
+            if (!int.TryParse(txtMaDangKy.Text.Trim(), out maDangKy)) { MessageBox.Show("Vui lòng chọn bản đăng ký cần hủy."); return; }
+            string error; if (controller.Xoa(maDangKy, out error)) { RefreshGrid(controller.GetAll()); txtMaDangKy.Clear(); MessageBox.Show("Đã xóa bản đăng ký."); } else MessageBox.Show(error, "Không thể xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            LoadCombos(); txtMaSinhVienTim.Clear(); txtMaMonHocTim.Clear(); lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; RefreshGrid(controller.GetAll());
+            txtMaSinhVien.Clear(); txtMaMonHoc.Clear(); txtMaDangKy.Clear(); txtMaSinhVienTim.Clear(); txtMaMonHocTim.Clear(); lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; RefreshGrid(controller.GetAll());
         }
 
-        private void cboMonHoc_SelectedIndexChanged(object sender, EventArgs e)
+        private void txtMaMonHoc_TextChanged(object sender, EventArgs e)
         {
-            Models.MonHoc mh = cboMonHoc.SelectedItem as Models.MonHoc; if (mh == null) { lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; return; }
+            int maMonHoc;
+            if (!int.TryParse(txtMaMonHoc.Text.Trim(), out maMonHoc)) { lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; return; }
+            Models.MonHoc mh = AppData.MonHocs.FirstOrDefault(x => x.MaMonHoc == maMonHoc); if (mh == null) { lblMaMonHocValue.Text = "-"; lblTinChiValue.Text = "-"; lblSoTietValue.Text = "-"; return; }
             lblMaMonHocValue.Text = mh.MaMonHoc.ToString(); lblTinChiValue.Text = mh.SoTinChi.ToString(); lblSoTietValue.Text = mh.SoTietHoc.ToString();
+        }
+
+        private void dgvDangKy_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvDangKy.SelectedRows.Count == 0) return;
+            DangKyDisplay row = dgvDangKy.SelectedRows[0].DataBoundItem as DangKyDisplay;
+            if (row == null) return;
+            txtMaDangKy.Text = row.MaDangKy.ToString();
+        }
+
+        private void btnHienThiTatCa_Click(object sender, EventArgs e)
+        {
+            RefreshGrid(controller.GetAll());
         }
 
         private void DangKyMonHoc_Load(object sender, EventArgs e)

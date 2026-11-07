@@ -14,17 +14,25 @@ namespace Project
         private System.Windows.Forms.Label lblMaMonHoc;
         private System.Windows.Forms.Label lblTinChi;
         private System.Windows.Forms.Label lblSoTiet;
+        private System.Windows.Forms.Label lblMaDangKy;
         private System.Windows.Forms.Label lblMaMonHocValue;
         private System.Windows.Forms.Label lblTinChiValue;
         private System.Windows.Forms.Label lblSoTietValue;
-        private System.Windows.Forms.ComboBox cboSinhVien;
-        private System.Windows.Forms.ComboBox cboMonHoc;
+        private System.Windows.Forms.TextBox txtMaSinhVien;
+        private System.Windows.Forms.TextBox txtMaMonHoc;
+        private System.Windows.Forms.TextBox txtMaDangKy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMaDangKy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMaSinhVien;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHoTen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMaMonHoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTenMonHoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colThoiGianDangKy;
         private System.Windows.Forms.Button btnDangKy;
         private System.Windows.Forms.Button btnHuyDangKy;
         private System.Windows.Forms.Button btnLamMoi;
         private System.Windows.Forms.DataGridView dgvDangKy;
         private System.Windows.Forms.Button btnBackHome;
-        private System.Windows.Forms.Panel pnlAdvanced;
+        private System.Windows.Forms.FlowLayoutPanel pnlAdvanced;
         private System.Windows.Forms.Label lblMaSinhVienTim;
         private System.Windows.Forms.TextBox txtMaSinhVienTim;
         private System.Windows.Forms.Button btnTimSinhVien;
@@ -36,6 +44,7 @@ namespace Project
         private System.Windows.Forms.Button btnTheoMaMonHoc;
         private System.Windows.Forms.Button btnSinhVienSomNhat;
         private System.Windows.Forms.Button btnSinhVienMuonNhat;
+        private System.Windows.Forms.Button btnHienThiTatCa;
 
         protected override void Dispose(bool disposing)
         {
@@ -45,28 +54,37 @@ namespace Project
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DangKyMonHoc));
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnBackHome = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlChon = new System.Windows.Forms.Panel();
             this.lblChonTitle = new System.Windows.Forms.Label();
             this.lblSinhVien = new System.Windows.Forms.Label();
-            this.cboSinhVien = new System.Windows.Forms.ComboBox();
+            this.txtMaSinhVien = new System.Windows.Forms.TextBox();
             this.lblMonHoc = new System.Windows.Forms.Label();
-            this.cboMonHoc = new System.Windows.Forms.ComboBox();
+            this.txtMaMonHoc = new System.Windows.Forms.TextBox();
+            this.txtMaDangKy = new System.Windows.Forms.TextBox();
             this.lblMaMonHoc = new System.Windows.Forms.Label();
             this.lblMaMonHocValue = new System.Windows.Forms.Label();
             this.lblTinChi = new System.Windows.Forms.Label();
             this.lblTinChiValue = new System.Windows.Forms.Label();
             this.lblSoTiet = new System.Windows.Forms.Label();
             this.lblSoTietValue = new System.Windows.Forms.Label();
+            this.lblMaDangKy = new System.Windows.Forms.Label();
             this.btnDangKy = new System.Windows.Forms.Button();
             this.btnLamMoi = new System.Windows.Forms.Button();
             this.pnlList = new System.Windows.Forms.Panel();
             this.lblListTitle = new System.Windows.Forms.Label();
             this.btnHuyDangKy = new System.Windows.Forms.Button();
             this.dgvDangKy = new System.Windows.Forms.DataGridView();
-            this.pnlAdvanced = new System.Windows.Forms.Panel();
+            this.colMaDangKy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMaSinhVien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMaMonHoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTenMonHoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colThoiGianDangKy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlAdvanced = new System.Windows.Forms.FlowLayoutPanel();
             this.lblMaSinhVienTim = new System.Windows.Forms.Label();
             this.txtMaSinhVienTim = new System.Windows.Forms.TextBox();
             this.btnTimSinhVien = new System.Windows.Forms.Button();
@@ -78,16 +96,20 @@ namespace Project
             this.btnTheoMaMonHoc = new System.Windows.Forms.Button();
             this.btnSinhVienSomNhat = new System.Windows.Forms.Button();
             this.btnSinhVienMuonNhat = new System.Windows.Forms.Button();
+            this.btnHienThiTatCa = new System.Windows.Forms.Button();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlHeader.SuspendLayout();
             this.pnlChon.SuspendLayout();
             this.pnlList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDangKy)).BeginInit();
             this.pnlAdvanced.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.White;
+            this.pnlHeader.Controls.Add(this.picLogo);
             this.pnlHeader.Controls.Add(this.btnBackHome);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -95,9 +117,7 @@ namespace Project
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1200, 76);
             this.pnlHeader.TabIndex = 2;
-            // 
-            // btnBackHome
-            // 
+ 
             this.btnBackHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnBackHome.FlatAppearance.BorderSize = 0;
             this.btnBackHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -110,9 +130,7 @@ namespace Project
             this.btnBackHome.Text = "⬅";
             this.btnBackHome.UseVisualStyleBackColor = false;
             this.btnBackHome.Click += new System.EventHandler(this.btnBackHome_Click);
-            // 
-            // lblTitle
-            // 
+
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(45)))), ((int)(((byte)(61)))));
@@ -121,21 +139,21 @@ namespace Project
             this.lblTitle.Size = new System.Drawing.Size(310, 47);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Đăng ký môn học";
-            // 
-            // pnlChon
-            // 
+  
             this.pnlChon.BackColor = System.Drawing.Color.White;
             this.pnlChon.Controls.Add(this.lblChonTitle);
             this.pnlChon.Controls.Add(this.lblSinhVien);
-            this.pnlChon.Controls.Add(this.cboSinhVien);
+            this.pnlChon.Controls.Add(this.txtMaSinhVien);
             this.pnlChon.Controls.Add(this.lblMonHoc);
-            this.pnlChon.Controls.Add(this.cboMonHoc);
+            this.pnlChon.Controls.Add(this.txtMaMonHoc);
+            this.pnlChon.Controls.Add(this.txtMaDangKy);
             this.pnlChon.Controls.Add(this.lblMaMonHoc);
             this.pnlChon.Controls.Add(this.lblMaMonHocValue);
             this.pnlChon.Controls.Add(this.lblTinChi);
             this.pnlChon.Controls.Add(this.lblTinChiValue);
             this.pnlChon.Controls.Add(this.lblSoTiet);
             this.pnlChon.Controls.Add(this.lblSoTietValue);
+            this.pnlChon.Controls.Add(this.lblMaDangKy);
             this.pnlChon.Controls.Add(this.btnDangKy);
             this.pnlChon.Controls.Add(this.btnLamMoi);
             this.pnlChon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -143,9 +161,7 @@ namespace Project
             this.pnlChon.Name = "pnlChon";
             this.pnlChon.Size = new System.Drawing.Size(374, 522);
             this.pnlChon.TabIndex = 1;
-            // 
-            // lblChonTitle
-            // 
+   
             this.lblChonTitle.AutoSize = true;
             this.lblChonTitle.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
             this.lblChonTitle.Location = new System.Drawing.Point(20, 18);
@@ -153,9 +169,7 @@ namespace Project
             this.lblChonTitle.Size = new System.Drawing.Size(202, 30);
             this.lblChonTitle.TabIndex = 0;
             this.lblChonTitle.Text = "Thông tin đăng ký";
-            // 
-            // lblSinhVien
-            // 
+
             this.lblSinhVien.AutoSize = true;
             this.lblSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSinhVien.Location = new System.Drawing.Point(20, 75);
@@ -163,17 +177,12 @@ namespace Project
             this.lblSinhVien.Size = new System.Drawing.Size(84, 22);
             this.lblSinhVien.TabIndex = 1;
             this.lblSinhVien.Text = "Sinh viên";
-            // 
-            // cboSinhVien
-            // 
-            this.cboSinhVien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboSinhVien.Location = new System.Drawing.Point(20, 100);
-            this.cboSinhVien.Name = "cboSinhVien";
-            this.cboSinhVien.Size = new System.Drawing.Size(315, 30);
-            this.cboSinhVien.TabIndex = 2;
-            // 
-            // lblMonHoc
-            // 
+       
+            this.txtMaSinhVien.Location = new System.Drawing.Point(20, 100);
+            this.txtMaSinhVien.Name = "txtMaSinhVien";
+            this.txtMaSinhVien.Size = new System.Drawing.Size(315, 28);
+            this.txtMaSinhVien.TabIndex = 2;
+        
             this.lblMonHoc.AutoSize = true;
             this.lblMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMonHoc.Location = new System.Drawing.Point(20, 145);
@@ -181,18 +190,19 @@ namespace Project
             this.lblMonHoc.Size = new System.Drawing.Size(78, 22);
             this.lblMonHoc.TabIndex = 3;
             this.lblMonHoc.Text = "Môn học";
-            // 
-            // cboMonHoc
-            // 
-            this.cboMonHoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMonHoc.Location = new System.Drawing.Point(20, 170);
-            this.cboMonHoc.Name = "cboMonHoc";
-            this.cboMonHoc.Size = new System.Drawing.Size(315, 30);
-            this.cboMonHoc.TabIndex = 4;
-            this.cboMonHoc.SelectedIndexChanged += new System.EventHandler(this.cboMonHoc_SelectedIndexChanged);
-            // 
-            // lblMaMonHoc
-            // 
+        
+            this.txtMaMonHoc.Location = new System.Drawing.Point(20, 170);
+            this.txtMaMonHoc.Name = "txtMaMonHoc";
+            this.txtMaMonHoc.Size = new System.Drawing.Size(315, 28);
+            this.txtMaMonHoc.TabIndex = 4;
+            this.txtMaMonHoc.TextChanged += new System.EventHandler(this.txtMaMonHoc_TextChanged);
+      
+            this.txtMaDangKy.Location = new System.Drawing.Point(145, 322);
+            this.txtMaDangKy.Name = "txtMaDangKy";
+            this.txtMaDangKy.ReadOnly = true;
+            this.txtMaDangKy.Size = new System.Drawing.Size(190, 28);
+            this.txtMaDangKy.TabIndex = 12;
+      
             this.lblMaMonHoc.AutoSize = true;
             this.lblMaMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaMonHoc.Location = new System.Drawing.Point(20, 220);
@@ -200,18 +210,14 @@ namespace Project
             this.lblMaMonHoc.Size = new System.Drawing.Size(107, 22);
             this.lblMaMonHoc.TabIndex = 5;
             this.lblMaMonHoc.Text = "Mã môn học";
-            // 
-            // lblMaMonHocValue
-            // 
+         
             this.lblMaMonHocValue.AutoSize = true;
             this.lblMaMonHocValue.Location = new System.Drawing.Point(145, 220);
             this.lblMaMonHocValue.Name = "lblMaMonHocValue";
             this.lblMaMonHocValue.Size = new System.Drawing.Size(16, 22);
             this.lblMaMonHocValue.TabIndex = 6;
             this.lblMaMonHocValue.Text = "-";
-            // 
-            // lblTinChi
-            // 
+      
             this.lblTinChi.AutoSize = true;
             this.lblTinChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTinChi.Location = new System.Drawing.Point(20, 255);
@@ -219,18 +225,14 @@ namespace Project
             this.lblTinChi.Size = new System.Drawing.Size(84, 22);
             this.lblTinChi.TabIndex = 7;
             this.lblTinChi.Text = "Số tín chỉ";
-            // 
-            // lblTinChiValue
-            // 
+     
             this.lblTinChiValue.AutoSize = true;
             this.lblTinChiValue.Location = new System.Drawing.Point(145, 255);
             this.lblTinChiValue.Name = "lblTinChiValue";
             this.lblTinChiValue.Size = new System.Drawing.Size(16, 22);
             this.lblTinChiValue.TabIndex = 8;
             this.lblTinChiValue.Text = "-";
-            // 
-            // lblSoTiet
-            // 
+       
             this.lblSoTiet.AutoSize = true;
             this.lblSoTiet.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoTiet.Location = new System.Drawing.Point(20, 290);
@@ -238,46 +240,46 @@ namespace Project
             this.lblSoTiet.Size = new System.Drawing.Size(95, 22);
             this.lblSoTiet.TabIndex = 9;
             this.lblSoTiet.Text = "Số tiết học";
-            // 
-            // lblSoTietValue
-            // 
+         
             this.lblSoTietValue.AutoSize = true;
             this.lblSoTietValue.Location = new System.Drawing.Point(145, 290);
             this.lblSoTietValue.Name = "lblSoTietValue";
             this.lblSoTietValue.Size = new System.Drawing.Size(16, 22);
             this.lblSoTietValue.TabIndex = 10;
             this.lblSoTietValue.Text = "-";
-            // 
-            // btnDangKy
-            // 
+         
+            this.lblMaDangKy.AutoSize = true;
+            this.lblMaDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaDangKy.Location = new System.Drawing.Point(20, 325);
+            this.lblMaDangKy.Name = "lblMaDangKy";
+            this.lblMaDangKy.Size = new System.Drawing.Size(102, 22);
+            this.lblMaDangKy.TabIndex = 11;
+            this.lblMaDangKy.Text = "Mã đăng ký";
+          
             this.btnDangKy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.btnDangKy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangKy.ForeColor = System.Drawing.Color.White;
-            this.btnDangKy.Location = new System.Drawing.Point(20, 370);
+            this.btnDangKy.Location = new System.Drawing.Point(24, 386);
             this.btnDangKy.Name = "btnDangKy";
-            this.btnDangKy.Size = new System.Drawing.Size(100, 40);
+            this.btnDangKy.Size = new System.Drawing.Size(116, 54);
             this.btnDangKy.TabIndex = 11;
             this.btnDangKy.Text = "Đăng ký";
             this.btnDangKy.UseVisualStyleBackColor = false;
             this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
-            // 
-            // btnLamMoi
-            // 
+    
             this.btnLamMoi.BackColor = System.Drawing.Color.Gray;
             this.btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLamMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLamMoi.ForeColor = System.Drawing.Color.White;
-            this.btnLamMoi.Location = new System.Drawing.Point(215, 370);
+            this.btnLamMoi.Location = new System.Drawing.Point(211, 386);
             this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(100, 40);
+            this.btnLamMoi.Size = new System.Drawing.Size(124, 54);
             this.btnLamMoi.TabIndex = 12;
             this.btnLamMoi.Text = "Làm mới";
             this.btnLamMoi.UseVisualStyleBackColor = false;
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
-            // 
-            // pnlList
-            // 
+       
             this.pnlList.BackColor = System.Drawing.Color.White;
             this.pnlList.Controls.Add(this.lblListTitle);
             this.pnlList.Controls.Add(this.btnHuyDangKy);
@@ -286,9 +288,7 @@ namespace Project
             this.pnlList.Name = "pnlList";
             this.pnlList.Size = new System.Drawing.Size(770, 522);
             this.pnlList.TabIndex = 0;
-            // 
-            // lblListTitle
-            // 
+       
             this.lblListTitle.AutoSize = true;
             this.lblListTitle.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
             this.lblListTitle.Location = new System.Drawing.Point(20, 18);
@@ -296,12 +296,10 @@ namespace Project
             this.lblListTitle.Size = new System.Drawing.Size(208, 30);
             this.lblListTitle.TabIndex = 0;
             this.lblListTitle.Text = "Danh sách đăng ký";
-            // 
-            // btnHuyDangKy
-            // 
+         
             this.btnHuyDangKy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.btnHuyDangKy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHuyDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuyDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHuyDangKy.ForeColor = System.Drawing.Color.White;
             this.btnHuyDangKy.Location = new System.Drawing.Point(578, 15);
             this.btnHuyDangKy.Name = "btnHuyDangKy";
@@ -310,11 +308,10 @@ namespace Project
             this.btnHuyDangKy.Text = "Hủy đăng ký";
             this.btnHuyDangKy.UseVisualStyleBackColor = false;
             this.btnHuyDangKy.Click += new System.EventHandler(this.btnHuyDangKy_Click);
-            // 
-            // dgvDangKy
-            // 
+      
             this.dgvDangKy.AllowUserToAddRows = false;
             this.dgvDangKy.AllowUserToDeleteRows = false;
+            this.dgvDangKy.AutoGenerateColumns = false;
             this.dgvDangKy.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDangKy.BackgroundColor = System.Drawing.Color.White;
             this.dgvDangKy.ColumnHeadersHeight = 29;
@@ -326,6 +323,48 @@ namespace Project
             this.dgvDangKy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDangKy.Size = new System.Drawing.Size(730, 390);
             this.dgvDangKy.TabIndex = 2;
+            this.dgvDangKy.SelectionChanged += new System.EventHandler(this.dgvDangKy_SelectionChanged);
+            this.dgvDangKy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colMaDangKy,
+            this.colMaSinhVien,
+            this.colHoTen,
+            this.colMaMonHoc,
+            this.colTenMonHoc,
+            this.colThoiGianDangKy});
+         
+            this.colMaDangKy.DataPropertyName = "MaDangKy";
+            this.colMaDangKy.HeaderText = "Mã đăng ký";
+            this.colMaDangKy.Name = "MaDangKy";
+            // 
+            // colMaSinhVien
+            // 
+            this.colMaSinhVien.DataPropertyName = "MaSinhVien";
+            this.colMaSinhVien.HeaderText = "Mã SV";
+            this.colMaSinhVien.Name = "MaSinhVien";
+            // 
+            // colHoTen
+            // 
+            this.colHoTen.DataPropertyName = "HoTen";
+            this.colHoTen.HeaderText = "Họ tên sinh viên";
+            this.colHoTen.Name = "HoTen";
+            // 
+            // colMaMonHoc
+            // 
+            this.colMaMonHoc.DataPropertyName = "MaMonHoc";
+            this.colMaMonHoc.HeaderText = "Mã môn";
+            this.colMaMonHoc.Name = "MaMonHoc";
+            // 
+            // colTenMonHoc
+            // 
+            this.colTenMonHoc.DataPropertyName = "TenMonHoc";
+            this.colTenMonHoc.HeaderText = "Tên môn";
+            this.colTenMonHoc.Name = "TenMonHoc";
+            // 
+            // colThoiGianDangKy
+            // 
+            this.colThoiGianDangKy.DataPropertyName = "ThoiGianDangKy";
+            this.colThoiGianDangKy.HeaderText = "Thời gian đăng ký";
+            this.colThoiGianDangKy.Name = "ThoiGianDangKy";
             // 
             // pnlAdvanced
             // 
@@ -341,6 +380,8 @@ namespace Project
             this.pnlAdvanced.Controls.Add(this.btnTheoMaMonHoc);
             this.pnlAdvanced.Controls.Add(this.btnSinhVienSomNhat);
             this.pnlAdvanced.Controls.Add(this.btnSinhVienMuonNhat);
+            this.pnlAdvanced.Controls.Add(this.btnHienThiTatCa);
+            this.pnlAdvanced.SetFlowBreak(this.btnSinhVienMuonNhat, true);
             this.pnlAdvanced.Location = new System.Drawing.Point(25, 635);
             this.pnlAdvanced.Name = "pnlAdvanced";
             this.pnlAdvanced.Size = new System.Drawing.Size(1150, 62);
@@ -350,7 +391,7 @@ namespace Project
             // 
             this.lblMaSinhVienTim.AutoSize = true;
             this.lblMaSinhVienTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaSinhVienTim.Location = new System.Drawing.Point(3, 21);
+            this.lblMaSinhVienTim.Location = new System.Drawing.Point(3, 0);
             this.lblMaSinhVienTim.Name = "lblMaSinhVienTim";
             this.lblMaSinhVienTim.Size = new System.Drawing.Size(62, 18);
             this.lblMaSinhVienTim.TabIndex = 0;
@@ -359,7 +400,7 @@ namespace Project
             // 
             // txtMaSinhVienTim
             // 
-            this.txtMaSinhVienTim.Location = new System.Drawing.Point(65, 18);
+            this.txtMaSinhVienTim.Location = new System.Drawing.Point(71, 3);
             this.txtMaSinhVienTim.Name = "txtMaSinhVienTim";
             this.txtMaSinhVienTim.Size = new System.Drawing.Size(103, 22);
             this.txtMaSinhVienTim.TabIndex = 1;
@@ -368,9 +409,9 @@ namespace Project
             // 
             this.btnTimSinhVien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnTimSinhVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTimSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTimSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimSinhVien.ForeColor = System.Drawing.Color.White;
-            this.btnTimSinhVien.Location = new System.Drawing.Point(174, -1);
+            this.btnTimSinhVien.Location = new System.Drawing.Point(180, 3);
             this.btnTimSinhVien.Name = "btnTimSinhVien";
             this.btnTimSinhVien.Size = new System.Drawing.Size(82, 60);
             this.btnTimSinhVien.TabIndex = 2;
@@ -382,7 +423,7 @@ namespace Project
             // 
             this.lblMaMonHocTim.AutoSize = true;
             this.lblMaMonHocTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaMonHocTim.Location = new System.Drawing.Point(262, 21);
+            this.lblMaMonHocTim.Location = new System.Drawing.Point(268, 0);
             this.lblMaMonHocTim.Name = "lblMaMonHocTim";
             this.lblMaMonHocTim.Size = new System.Drawing.Size(67, 18);
             this.lblMaMonHocTim.TabIndex = 3;
@@ -390,7 +431,7 @@ namespace Project
             // 
             // txtMaMonHocTim
             // 
-            this.txtMaMonHocTim.Location = new System.Drawing.Point(335, 18);
+            this.txtMaMonHocTim.Location = new System.Drawing.Point(341, 3);
             this.txtMaMonHocTim.Name = "txtMaMonHocTim";
             this.txtMaMonHocTim.Size = new System.Drawing.Size(108, 22);
             this.txtMaMonHocTim.TabIndex = 4;
@@ -399,9 +440,9 @@ namespace Project
             // 
             this.btnTimMonHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnTimMonHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTimMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTimMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimMonHoc.ForeColor = System.Drawing.Color.White;
-            this.btnTimMonHoc.Location = new System.Drawing.Point(449, 0);
+            this.btnTimMonHoc.Location = new System.Drawing.Point(455, 3);
             this.btnTimMonHoc.Name = "btnTimMonHoc";
             this.btnTimMonHoc.Size = new System.Drawing.Size(95, 59);
             this.btnTimMonHoc.TabIndex = 5;
@@ -413,9 +454,9 @@ namespace Project
             // 
             this.btnTheoThoiGian.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnTheoThoiGian.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTheoThoiGian.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTheoThoiGian.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTheoThoiGian.ForeColor = System.Drawing.Color.White;
-            this.btnTheoThoiGian.Location = new System.Drawing.Point(550, 0);
+            this.btnTheoThoiGian.Location = new System.Drawing.Point(556, 3);
             this.btnTheoThoiGian.Name = "btnTheoThoiGian";
             this.btnTheoThoiGian.Size = new System.Drawing.Size(110, 58);
             this.btnTheoThoiGian.TabIndex = 6;
@@ -427,9 +468,9 @@ namespace Project
             // 
             this.btnTheoMaSinhVien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnTheoMaSinhVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTheoMaSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTheoMaSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTheoMaSinhVien.ForeColor = System.Drawing.Color.White;
-            this.btnTheoMaSinhVien.Location = new System.Drawing.Point(666, -1);
+            this.btnTheoMaSinhVien.Location = new System.Drawing.Point(672, 3);
             this.btnTheoMaSinhVien.Name = "btnTheoMaSinhVien";
             this.btnTheoMaSinhVien.Size = new System.Drawing.Size(112, 59);
             this.btnTheoMaSinhVien.TabIndex = 7;
@@ -441,9 +482,9 @@ namespace Project
             // 
             this.btnTheoMaMonHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnTheoMaMonHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTheoMaMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTheoMaMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTheoMaMonHoc.ForeColor = System.Drawing.Color.White;
-            this.btnTheoMaMonHoc.Location = new System.Drawing.Point(784, 0);
+            this.btnTheoMaMonHoc.Location = new System.Drawing.Point(790, 3);
             this.btnTheoMaMonHoc.Name = "btnTheoMaMonHoc";
             this.btnTheoMaMonHoc.Size = new System.Drawing.Size(118, 59);
             this.btnTheoMaMonHoc.TabIndex = 8;
@@ -455,9 +496,9 @@ namespace Project
             // 
             this.btnSinhVienSomNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnSinhVienSomNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSinhVienSomNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSinhVienSomNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSinhVienSomNhat.ForeColor = System.Drawing.Color.White;
-            this.btnSinhVienSomNhat.Location = new System.Drawing.Point(908, -1);
+            this.btnSinhVienSomNhat.Location = new System.Drawing.Point(914, 3);
             this.btnSinhVienSomNhat.Name = "btnSinhVienSomNhat";
             this.btnSinhVienSomNhat.Size = new System.Drawing.Size(111, 59);
             this.btnSinhVienSomNhat.TabIndex = 9;
@@ -469,9 +510,9 @@ namespace Project
             // 
             this.btnSinhVienMuonNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnSinhVienMuonNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSinhVienMuonNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSinhVienMuonNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSinhVienMuonNhat.ForeColor = System.Drawing.Color.White;
-            this.btnSinhVienMuonNhat.Location = new System.Drawing.Point(1025, 0);
+            this.btnSinhVienMuonNhat.Location = new System.Drawing.Point(1031, 3);
             this.btnSinhVienMuonNhat.Name = "btnSinhVienMuonNhat";
             this.btnSinhVienMuonNhat.Size = new System.Drawing.Size(105, 59);
             this.btnSinhVienMuonNhat.TabIndex = 10;
@@ -479,12 +520,38 @@ namespace Project
             this.btnSinhVienMuonNhat.UseVisualStyleBackColor = false;
             this.btnSinhVienMuonNhat.Click += new System.EventHandler(this.btnSinhVienMuonNhat_Click);
             // 
+            // btnHienThiTatCa
+            // 
+            this.btnHienThiTatCa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnHienThiTatCa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHienThiTatCa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHienThiTatCa.ForeColor = System.Drawing.Color.White;
+            this.btnHienThiTatCa.Location = new System.Drawing.Point(3, 69);
+            this.btnHienThiTatCa.Name = "btnHienThiTatCa";
+            this.btnHienThiTatCa.Size = new System.Drawing.Size(110, 59);
+            this.btnHienThiTatCa.TabIndex = 11;
+            this.btnHienThiTatCa.Text = "Hiển thị tất cả";
+            this.btnHienThiTatCa.UseVisualStyleBackColor = false;
+            this.btnHienThiTatCa.Click += new System.EventHandler(this.btnHienThiTatCa_Click);
+            // 
+            // picLogo
+            // 
+            this.picLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picLogo.BackColor = System.Drawing.Color.Transparent;
+            this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
+            this.picLogo.Location = new System.Drawing.Point(1127, 12);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(48, 48);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.TabIndex = 5;
+            this.picLogo.TabStop = false;
+            // 
             // DangKyMonHoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(1200, 720);
+            this.ClientSize = new System.Drawing.Size(1200, 775);
             this.Controls.Add(this.pnlAdvanced);
             this.Controls.Add(this.pnlList);
             this.Controls.Add(this.pnlChon);
@@ -502,8 +569,11 @@ namespace Project
             ((System.ComponentModel.ISupportInitialize)(this.dgvDangKy)).EndInit();
             this.pnlAdvanced.ResumeLayout(false);
             this.pnlAdvanced.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
+
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }

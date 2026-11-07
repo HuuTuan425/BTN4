@@ -63,5 +63,27 @@ namespace Controllers
             int max = AppData.SinhViens.Max(sv => AppData.DangKys.Count(dk => dk.SinhVien == sv));
             return AppData.SinhViens.Where(sv => AppData.DangKys.Count(dk => dk.SinhVien == sv) == max).ToList();
         }
+
+        public List<SinhVien> TimDangKySomNhat()
+        {
+            if (AppData.DangKys.Count == 0) return new List<SinhVien>();
+            DateTime thoiGianSomNhat = AppData.DangKys.Min(x => x.ThoiGianDangKy);
+            return AppData.DangKys
+                .Where(x => x.ThoiGianDangKy == thoiGianSomNhat)
+                .Select(x => x.SinhVien)
+                .Distinct()
+                .ToList();
+        }
+
+        public List<SinhVien> TimDangKyMuonNhat()
+        {
+            if (AppData.DangKys.Count == 0) return new List<SinhVien>();
+            DateTime thoiGianMuonNhat = AppData.DangKys.Max(x => x.ThoiGianDangKy);
+            return AppData.DangKys
+                .Where(x => x.ThoiGianDangKy == thoiGianMuonNhat)
+                .Select(x => x.SinhVien)
+                .Distinct()
+                .ToList();
+        }
     }
 }

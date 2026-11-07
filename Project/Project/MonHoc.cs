@@ -24,6 +24,13 @@ namespace Project
         {
             dgv.DataSource = null;
             dgv.DataSource = data;
+            if (dgv.Columns.Count > 0)
+            {
+                dgv.Columns["MaMonHoc"].HeaderText = "Mã môn";
+                dgv.Columns["TenMonHoc"].HeaderText = "Tên môn học";
+                dgv.Columns["SoTinChi"].HeaderText = "Số tín chỉ";
+                dgv.Columns["SoTietHoc"].HeaderText = "Số tiết học";
+            }
         }
 
         private void Add_Click(object sender, EventArgs e)
@@ -70,6 +77,17 @@ namespace Project
             RefreshGrid(controller.TimGanDung(txtTimKiem.Text));
         }
 
+        private void btnHienThiTatCa_Click(object sender, EventArgs e)
+        {
+            txtTimKiem.Clear();
+            RefreshGrid(controller.GetAll());
+        }
+
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            ClearInputs();
+        }
+
         private void Sort_Click(object sender, EventArgs e)
         {
             RefreshGrid(controller.SapXepTheoTinChi());
@@ -101,6 +119,16 @@ namespace Project
         }
 
         private void lblListTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void pnlHeader_Paint(object sender, PaintEventArgs e)
         {
 
         }

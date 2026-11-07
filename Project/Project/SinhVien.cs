@@ -29,10 +29,24 @@ namespace Project
             ShowStudents(controller.TimDangKyNhieuNhat(), "Sinh viên đăng ký nhiều môn nhất");
         }
 
+        private void btnHienThiTatCa_Click(object sender, EventArgs e)
+        {
+            RefreshGrid(controller.GetAll());
+        }
+
         private void RefreshGrid(object data)
         {
             dgvSinhVien.DataSource = null;
             dgvSinhVien.DataSource = data;
+            if (dgvSinhVien.Columns.Count > 0)
+            {
+                dgvSinhVien.Columns["MaSinhVien"].HeaderText = "Mã sinh viên";
+                dgvSinhVien.Columns["HoTen"].HeaderText = "Họ và tên";
+                dgvSinhVien.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+                dgvSinhVien.Columns["Email"].HeaderText = "Email";
+                dgvSinhVien.Columns["SoDienThoai"].HeaderText = "Số điện thoại";
+                dgvSinhVien.Columns["ChuyenNganh"].HeaderText = "Chuyên ngành";
+            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
