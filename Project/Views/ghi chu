@@ -1,0 +1,5 @@
+ Lớp models dung để lưu trữ dữ liệu của các lớp , liệt kê những sản phẩm những thuộc tính và quy định các thuộc tính
+ 
+ Mỗi sinh viên : thuộc tính : mã sinh viên , họ tên , ngày sinh , email , số điện thoại , chuyên ngành 
+ Môn học : Mã môn học , tên môn , số tín chỉ , 
+ Bản đăng ký môn học: Mã bản đăng ký , sinh viên đăng ký , thời gian đăng ký , môn học đăng ký 

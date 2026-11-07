@@ -1,0 +1,509 @@
+namespace Project
+{
+    partial class DangKyMonHoc
+    {
+        private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Panel pnlChon;
+        private System.Windows.Forms.Panel pnlList;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblChonTitle;
+        private System.Windows.Forms.Label lblListTitle;
+        private System.Windows.Forms.Label lblSinhVien;
+        private System.Windows.Forms.Label lblMonHoc;
+        private System.Windows.Forms.Label lblMaMonHoc;
+        private System.Windows.Forms.Label lblTinChi;
+        private System.Windows.Forms.Label lblSoTiet;
+        private System.Windows.Forms.Label lblMaMonHocValue;
+        private System.Windows.Forms.Label lblTinChiValue;
+        private System.Windows.Forms.Label lblSoTietValue;
+        private System.Windows.Forms.ComboBox cboSinhVien;
+        private System.Windows.Forms.ComboBox cboMonHoc;
+        private System.Windows.Forms.Button btnDangKy;
+        private System.Windows.Forms.Button btnHuyDangKy;
+        private System.Windows.Forms.Button btnLamMoi;
+        private System.Windows.Forms.DataGridView dgvDangKy;
+        private System.Windows.Forms.Button btnBackHome;
+        private System.Windows.Forms.Panel pnlAdvanced;
+        private System.Windows.Forms.Label lblMaSinhVienTim;
+        private System.Windows.Forms.TextBox txtMaSinhVienTim;
+        private System.Windows.Forms.Button btnTimSinhVien;
+        private System.Windows.Forms.Label lblMaMonHocTim;
+        private System.Windows.Forms.TextBox txtMaMonHocTim;
+        private System.Windows.Forms.Button btnTimMonHoc;
+        private System.Windows.Forms.Button btnTheoThoiGian;
+        private System.Windows.Forms.Button btnTheoMaSinhVien;
+        private System.Windows.Forms.Button btnTheoMaMonHoc;
+        private System.Windows.Forms.Button btnSinhVienSomNhat;
+        private System.Windows.Forms.Button btnSinhVienMuonNhat;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null)) components.Dispose();
+            base.Dispose(disposing);
+        }
+
+        private void InitializeComponent()
+        {
+            this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnBackHome = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.pnlChon = new System.Windows.Forms.Panel();
+            this.lblChonTitle = new System.Windows.Forms.Label();
+            this.lblSinhVien = new System.Windows.Forms.Label();
+            this.cboSinhVien = new System.Windows.Forms.ComboBox();
+            this.lblMonHoc = new System.Windows.Forms.Label();
+            this.cboMonHoc = new System.Windows.Forms.ComboBox();
+            this.lblMaMonHoc = new System.Windows.Forms.Label();
+            this.lblMaMonHocValue = new System.Windows.Forms.Label();
+            this.lblTinChi = new System.Windows.Forms.Label();
+            this.lblTinChiValue = new System.Windows.Forms.Label();
+            this.lblSoTiet = new System.Windows.Forms.Label();
+            this.lblSoTietValue = new System.Windows.Forms.Label();
+            this.btnDangKy = new System.Windows.Forms.Button();
+            this.btnLamMoi = new System.Windows.Forms.Button();
+            this.pnlList = new System.Windows.Forms.Panel();
+            this.lblListTitle = new System.Windows.Forms.Label();
+            this.btnHuyDangKy = new System.Windows.Forms.Button();
+            this.dgvDangKy = new System.Windows.Forms.DataGridView();
+            this.pnlAdvanced = new System.Windows.Forms.Panel();
+            this.lblMaSinhVienTim = new System.Windows.Forms.Label();
+            this.txtMaSinhVienTim = new System.Windows.Forms.TextBox();
+            this.btnTimSinhVien = new System.Windows.Forms.Button();
+            this.lblMaMonHocTim = new System.Windows.Forms.Label();
+            this.txtMaMonHocTim = new System.Windows.Forms.TextBox();
+            this.btnTimMonHoc = new System.Windows.Forms.Button();
+            this.btnTheoThoiGian = new System.Windows.Forms.Button();
+            this.btnTheoMaSinhVien = new System.Windows.Forms.Button();
+            this.btnTheoMaMonHoc = new System.Windows.Forms.Button();
+            this.btnSinhVienSomNhat = new System.Windows.Forms.Button();
+            this.btnSinhVienMuonNhat = new System.Windows.Forms.Button();
+            this.pnlHeader.SuspendLayout();
+            this.pnlChon.SuspendLayout();
+            this.pnlList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDangKy)).BeginInit();
+            this.pnlAdvanced.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlHeader
+            // 
+            this.pnlHeader.BackColor = System.Drawing.Color.White;
+            this.pnlHeader.Controls.Add(this.btnBackHome);
+            this.pnlHeader.Controls.Add(this.lblTitle);
+            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeader.Name = "pnlHeader";
+            this.pnlHeader.Size = new System.Drawing.Size(1200, 76);
+            this.pnlHeader.TabIndex = 2;
+            // 
+            // btnBackHome
+            // 
+            this.btnBackHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnBackHome.FlatAppearance.BorderSize = 0;
+            this.btnBackHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBackHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackHome.ForeColor = System.Drawing.Color.White;
+            this.btnBackHome.Location = new System.Drawing.Point(20, 12);
+            this.btnBackHome.Name = "btnBackHome";
+            this.btnBackHome.Size = new System.Drawing.Size(67, 55);
+            this.btnBackHome.TabIndex = 3;
+            this.btnBackHome.Text = "⬅";
+            this.btnBackHome.UseVisualStyleBackColor = false;
+            this.btnBackHome.Click += new System.EventHandler(this.btnBackHome_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(45)))), ((int)(((byte)(61)))));
+            this.lblTitle.Location = new System.Drawing.Point(433, 20);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(310, 47);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Đăng ký môn học";
+            // 
+            // pnlChon
+            // 
+            this.pnlChon.BackColor = System.Drawing.Color.White;
+            this.pnlChon.Controls.Add(this.lblChonTitle);
+            this.pnlChon.Controls.Add(this.lblSinhVien);
+            this.pnlChon.Controls.Add(this.cboSinhVien);
+            this.pnlChon.Controls.Add(this.lblMonHoc);
+            this.pnlChon.Controls.Add(this.cboMonHoc);
+            this.pnlChon.Controls.Add(this.lblMaMonHoc);
+            this.pnlChon.Controls.Add(this.lblMaMonHocValue);
+            this.pnlChon.Controls.Add(this.lblTinChi);
+            this.pnlChon.Controls.Add(this.lblTinChiValue);
+            this.pnlChon.Controls.Add(this.lblSoTiet);
+            this.pnlChon.Controls.Add(this.lblSoTietValue);
+            this.pnlChon.Controls.Add(this.btnDangKy);
+            this.pnlChon.Controls.Add(this.btnLamMoi);
+            this.pnlChon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlChon.Location = new System.Drawing.Point(25, 98);
+            this.pnlChon.Name = "pnlChon";
+            this.pnlChon.Size = new System.Drawing.Size(374, 522);
+            this.pnlChon.TabIndex = 1;
+            // 
+            // lblChonTitle
+            // 
+            this.lblChonTitle.AutoSize = true;
+            this.lblChonTitle.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.lblChonTitle.Location = new System.Drawing.Point(20, 18);
+            this.lblChonTitle.Name = "lblChonTitle";
+            this.lblChonTitle.Size = new System.Drawing.Size(202, 30);
+            this.lblChonTitle.TabIndex = 0;
+            this.lblChonTitle.Text = "Thông tin đăng ký";
+            // 
+            // lblSinhVien
+            // 
+            this.lblSinhVien.AutoSize = true;
+            this.lblSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSinhVien.Location = new System.Drawing.Point(20, 75);
+            this.lblSinhVien.Name = "lblSinhVien";
+            this.lblSinhVien.Size = new System.Drawing.Size(84, 22);
+            this.lblSinhVien.TabIndex = 1;
+            this.lblSinhVien.Text = "Sinh viên";
+            // 
+            // cboSinhVien
+            // 
+            this.cboSinhVien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSinhVien.Location = new System.Drawing.Point(20, 100);
+            this.cboSinhVien.Name = "cboSinhVien";
+            this.cboSinhVien.Size = new System.Drawing.Size(315, 30);
+            this.cboSinhVien.TabIndex = 2;
+            // 
+            // lblMonHoc
+            // 
+            this.lblMonHoc.AutoSize = true;
+            this.lblMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMonHoc.Location = new System.Drawing.Point(20, 145);
+            this.lblMonHoc.Name = "lblMonHoc";
+            this.lblMonHoc.Size = new System.Drawing.Size(78, 22);
+            this.lblMonHoc.TabIndex = 3;
+            this.lblMonHoc.Text = "Môn học";
+            // 
+            // cboMonHoc
+            // 
+            this.cboMonHoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMonHoc.Location = new System.Drawing.Point(20, 170);
+            this.cboMonHoc.Name = "cboMonHoc";
+            this.cboMonHoc.Size = new System.Drawing.Size(315, 30);
+            this.cboMonHoc.TabIndex = 4;
+            this.cboMonHoc.SelectedIndexChanged += new System.EventHandler(this.cboMonHoc_SelectedIndexChanged);
+            // 
+            // lblMaMonHoc
+            // 
+            this.lblMaMonHoc.AutoSize = true;
+            this.lblMaMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaMonHoc.Location = new System.Drawing.Point(20, 220);
+            this.lblMaMonHoc.Name = "lblMaMonHoc";
+            this.lblMaMonHoc.Size = new System.Drawing.Size(107, 22);
+            this.lblMaMonHoc.TabIndex = 5;
+            this.lblMaMonHoc.Text = "Mã môn học";
+            // 
+            // lblMaMonHocValue
+            // 
+            this.lblMaMonHocValue.AutoSize = true;
+            this.lblMaMonHocValue.Location = new System.Drawing.Point(145, 220);
+            this.lblMaMonHocValue.Name = "lblMaMonHocValue";
+            this.lblMaMonHocValue.Size = new System.Drawing.Size(16, 22);
+            this.lblMaMonHocValue.TabIndex = 6;
+            this.lblMaMonHocValue.Text = "-";
+            // 
+            // lblTinChi
+            // 
+            this.lblTinChi.AutoSize = true;
+            this.lblTinChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTinChi.Location = new System.Drawing.Point(20, 255);
+            this.lblTinChi.Name = "lblTinChi";
+            this.lblTinChi.Size = new System.Drawing.Size(84, 22);
+            this.lblTinChi.TabIndex = 7;
+            this.lblTinChi.Text = "Số tín chỉ";
+            // 
+            // lblTinChiValue
+            // 
+            this.lblTinChiValue.AutoSize = true;
+            this.lblTinChiValue.Location = new System.Drawing.Point(145, 255);
+            this.lblTinChiValue.Name = "lblTinChiValue";
+            this.lblTinChiValue.Size = new System.Drawing.Size(16, 22);
+            this.lblTinChiValue.TabIndex = 8;
+            this.lblTinChiValue.Text = "-";
+            // 
+            // lblSoTiet
+            // 
+            this.lblSoTiet.AutoSize = true;
+            this.lblSoTiet.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoTiet.Location = new System.Drawing.Point(20, 290);
+            this.lblSoTiet.Name = "lblSoTiet";
+            this.lblSoTiet.Size = new System.Drawing.Size(95, 22);
+            this.lblSoTiet.TabIndex = 9;
+            this.lblSoTiet.Text = "Số tiết học";
+            // 
+            // lblSoTietValue
+            // 
+            this.lblSoTietValue.AutoSize = true;
+            this.lblSoTietValue.Location = new System.Drawing.Point(145, 290);
+            this.lblSoTietValue.Name = "lblSoTietValue";
+            this.lblSoTietValue.Size = new System.Drawing.Size(16, 22);
+            this.lblSoTietValue.TabIndex = 10;
+            this.lblSoTietValue.Text = "-";
+            // 
+            // btnDangKy
+            // 
+            this.btnDangKy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnDangKy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDangKy.ForeColor = System.Drawing.Color.White;
+            this.btnDangKy.Location = new System.Drawing.Point(20, 370);
+            this.btnDangKy.Name = "btnDangKy";
+            this.btnDangKy.Size = new System.Drawing.Size(100, 40);
+            this.btnDangKy.TabIndex = 11;
+            this.btnDangKy.Text = "Đăng ký";
+            this.btnDangKy.UseVisualStyleBackColor = false;
+            this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
+            // 
+            // btnLamMoi
+            // 
+            this.btnLamMoi.BackColor = System.Drawing.Color.Gray;
+            this.btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLamMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLamMoi.ForeColor = System.Drawing.Color.White;
+            this.btnLamMoi.Location = new System.Drawing.Point(215, 370);
+            this.btnLamMoi.Name = "btnLamMoi";
+            this.btnLamMoi.Size = new System.Drawing.Size(100, 40);
+            this.btnLamMoi.TabIndex = 12;
+            this.btnLamMoi.Text = "Làm mới";
+            this.btnLamMoi.UseVisualStyleBackColor = false;
+            this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
+            // 
+            // pnlList
+            // 
+            this.pnlList.BackColor = System.Drawing.Color.White;
+            this.pnlList.Controls.Add(this.lblListTitle);
+            this.pnlList.Controls.Add(this.btnHuyDangKy);
+            this.pnlList.Controls.Add(this.dgvDangKy);
+            this.pnlList.Location = new System.Drawing.Point(405, 98);
+            this.pnlList.Name = "pnlList";
+            this.pnlList.Size = new System.Drawing.Size(770, 522);
+            this.pnlList.TabIndex = 0;
+            // 
+            // lblListTitle
+            // 
+            this.lblListTitle.AutoSize = true;
+            this.lblListTitle.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.lblListTitle.Location = new System.Drawing.Point(20, 18);
+            this.lblListTitle.Name = "lblListTitle";
+            this.lblListTitle.Size = new System.Drawing.Size(208, 30);
+            this.lblListTitle.TabIndex = 0;
+            this.lblListTitle.Text = "Danh sách đăng ký";
+            // 
+            // btnHuyDangKy
+            // 
+            this.btnHuyDangKy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnHuyDangKy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHuyDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuyDangKy.ForeColor = System.Drawing.Color.White;
+            this.btnHuyDangKy.Location = new System.Drawing.Point(578, 15);
+            this.btnHuyDangKy.Name = "btnHuyDangKy";
+            this.btnHuyDangKy.Size = new System.Drawing.Size(172, 41);
+            this.btnHuyDangKy.TabIndex = 1;
+            this.btnHuyDangKy.Text = "Hủy đăng ký";
+            this.btnHuyDangKy.UseVisualStyleBackColor = false;
+            this.btnHuyDangKy.Click += new System.EventHandler(this.btnHuyDangKy_Click);
+            // 
+            // dgvDangKy
+            // 
+            this.dgvDangKy.AllowUserToAddRows = false;
+            this.dgvDangKy.AllowUserToDeleteRows = false;
+            this.dgvDangKy.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDangKy.BackgroundColor = System.Drawing.Color.White;
+            this.dgvDangKy.ColumnHeadersHeight = 29;
+            this.dgvDangKy.Location = new System.Drawing.Point(20, 65);
+            this.dgvDangKy.Name = "dgvDangKy";
+            this.dgvDangKy.ReadOnly = true;
+            this.dgvDangKy.RowHeadersVisible = false;
+            this.dgvDangKy.RowHeadersWidth = 51;
+            this.dgvDangKy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDangKy.Size = new System.Drawing.Size(730, 390);
+            this.dgvDangKy.TabIndex = 2;
+            // 
+            // pnlAdvanced
+            // 
+            this.pnlAdvanced.BackColor = System.Drawing.Color.White;
+            this.pnlAdvanced.Controls.Add(this.lblMaSinhVienTim);
+            this.pnlAdvanced.Controls.Add(this.txtMaSinhVienTim);
+            this.pnlAdvanced.Controls.Add(this.btnTimSinhVien);
+            this.pnlAdvanced.Controls.Add(this.lblMaMonHocTim);
+            this.pnlAdvanced.Controls.Add(this.txtMaMonHocTim);
+            this.pnlAdvanced.Controls.Add(this.btnTimMonHoc);
+            this.pnlAdvanced.Controls.Add(this.btnTheoThoiGian);
+            this.pnlAdvanced.Controls.Add(this.btnTheoMaSinhVien);
+            this.pnlAdvanced.Controls.Add(this.btnTheoMaMonHoc);
+            this.pnlAdvanced.Controls.Add(this.btnSinhVienSomNhat);
+            this.pnlAdvanced.Controls.Add(this.btnSinhVienMuonNhat);
+            this.pnlAdvanced.Location = new System.Drawing.Point(25, 635);
+            this.pnlAdvanced.Name = "pnlAdvanced";
+            this.pnlAdvanced.Size = new System.Drawing.Size(1150, 62);
+            this.pnlAdvanced.TabIndex = 3;
+            // 
+            // lblMaSinhVienTim
+            // 
+            this.lblMaSinhVienTim.AutoSize = true;
+            this.lblMaSinhVienTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaSinhVienTim.Location = new System.Drawing.Point(3, 21);
+            this.lblMaSinhVienTim.Name = "lblMaSinhVienTim";
+            this.lblMaSinhVienTim.Size = new System.Drawing.Size(62, 18);
+            this.lblMaSinhVienTim.TabIndex = 0;
+            this.lblMaSinhVienTim.Text = "Mã SV:";
+            this.lblMaSinhVienTim.Click += new System.EventHandler(this.lblMaSinhVienTim_Click);
+            // 
+            // txtMaSinhVienTim
+            // 
+            this.txtMaSinhVienTim.Location = new System.Drawing.Point(65, 18);
+            this.txtMaSinhVienTim.Name = "txtMaSinhVienTim";
+            this.txtMaSinhVienTim.Size = new System.Drawing.Size(103, 22);
+            this.txtMaSinhVienTim.TabIndex = 1;
+            // 
+            // btnTimSinhVien
+            // 
+            this.btnTimSinhVien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnTimSinhVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTimSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTimSinhVien.ForeColor = System.Drawing.Color.White;
+            this.btnTimSinhVien.Location = new System.Drawing.Point(174, -1);
+            this.btnTimSinhVien.Name = "btnTimSinhVien";
+            this.btnTimSinhVien.Size = new System.Drawing.Size(82, 60);
+            this.btnTimSinhVien.TabIndex = 2;
+            this.btnTimSinhVien.Text = "Tìm SV";
+            this.btnTimSinhVien.UseVisualStyleBackColor = false;
+            this.btnTimSinhVien.Click += new System.EventHandler(this.btnTimSinhVien_Click);
+            // 
+            // lblMaMonHocTim
+            // 
+            this.lblMaMonHocTim.AutoSize = true;
+            this.lblMaMonHocTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaMonHocTim.Location = new System.Drawing.Point(262, 21);
+            this.lblMaMonHocTim.Name = "lblMaMonHocTim";
+            this.lblMaMonHocTim.Size = new System.Drawing.Size(67, 18);
+            this.lblMaMonHocTim.TabIndex = 3;
+            this.lblMaMonHocTim.Text = "Mã MH:";
+            // 
+            // txtMaMonHocTim
+            // 
+            this.txtMaMonHocTim.Location = new System.Drawing.Point(335, 18);
+            this.txtMaMonHocTim.Name = "txtMaMonHocTim";
+            this.txtMaMonHocTim.Size = new System.Drawing.Size(108, 22);
+            this.txtMaMonHocTim.TabIndex = 4;
+            // 
+            // btnTimMonHoc
+            // 
+            this.btnTimMonHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnTimMonHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTimMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTimMonHoc.ForeColor = System.Drawing.Color.White;
+            this.btnTimMonHoc.Location = new System.Drawing.Point(449, 0);
+            this.btnTimMonHoc.Name = "btnTimMonHoc";
+            this.btnTimMonHoc.Size = new System.Drawing.Size(95, 59);
+            this.btnTimMonHoc.TabIndex = 5;
+            this.btnTimMonHoc.Text = "Tìm MH";
+            this.btnTimMonHoc.UseVisualStyleBackColor = false;
+            this.btnTimMonHoc.Click += new System.EventHandler(this.btnTimMonHoc_Click);
+            // 
+            // btnTheoThoiGian
+            // 
+            this.btnTheoThoiGian.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnTheoThoiGian.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTheoThoiGian.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTheoThoiGian.ForeColor = System.Drawing.Color.White;
+            this.btnTheoThoiGian.Location = new System.Drawing.Point(550, 0);
+            this.btnTheoThoiGian.Name = "btnTheoThoiGian";
+            this.btnTheoThoiGian.Size = new System.Drawing.Size(110, 58);
+            this.btnTheoThoiGian.TabIndex = 6;
+            this.btnTheoThoiGian.Text = "Theo thời gian";
+            this.btnTheoThoiGian.UseVisualStyleBackColor = false;
+            this.btnTheoThoiGian.Click += new System.EventHandler(this.btnTheoThoiGian_Click);
+            // 
+            // btnTheoMaSinhVien
+            // 
+            this.btnTheoMaSinhVien.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnTheoMaSinhVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTheoMaSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTheoMaSinhVien.ForeColor = System.Drawing.Color.White;
+            this.btnTheoMaSinhVien.Location = new System.Drawing.Point(666, -1);
+            this.btnTheoMaSinhVien.Name = "btnTheoMaSinhVien";
+            this.btnTheoMaSinhVien.Size = new System.Drawing.Size(112, 59);
+            this.btnTheoMaSinhVien.TabIndex = 7;
+            this.btnTheoMaSinhVien.Text = "Theo mã SV";
+            this.btnTheoMaSinhVien.UseVisualStyleBackColor = false;
+            this.btnTheoMaSinhVien.Click += new System.EventHandler(this.btnTheoMaSinhVien_Click);
+            // 
+            // btnTheoMaMonHoc
+            // 
+            this.btnTheoMaMonHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnTheoMaMonHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTheoMaMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTheoMaMonHoc.ForeColor = System.Drawing.Color.White;
+            this.btnTheoMaMonHoc.Location = new System.Drawing.Point(784, 0);
+            this.btnTheoMaMonHoc.Name = "btnTheoMaMonHoc";
+            this.btnTheoMaMonHoc.Size = new System.Drawing.Size(118, 59);
+            this.btnTheoMaMonHoc.TabIndex = 8;
+            this.btnTheoMaMonHoc.Text = "Theo mã MH";
+            this.btnTheoMaMonHoc.UseVisualStyleBackColor = false;
+            this.btnTheoMaMonHoc.Click += new System.EventHandler(this.btnTheoMaMonHoc_Click);
+            // 
+            // btnSinhVienSomNhat
+            // 
+            this.btnSinhVienSomNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnSinhVienSomNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSinhVienSomNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSinhVienSomNhat.ForeColor = System.Drawing.Color.White;
+            this.btnSinhVienSomNhat.Location = new System.Drawing.Point(908, -1);
+            this.btnSinhVienSomNhat.Name = "btnSinhVienSomNhat";
+            this.btnSinhVienSomNhat.Size = new System.Drawing.Size(111, 59);
+            this.btnSinhVienSomNhat.TabIndex = 9;
+            this.btnSinhVienSomNhat.Text = "SV sớm nhất";
+            this.btnSinhVienSomNhat.UseVisualStyleBackColor = false;
+            this.btnSinhVienSomNhat.Click += new System.EventHandler(this.btnSinhVienSomNhat_Click);
+            // 
+            // btnSinhVienMuonNhat
+            // 
+            this.btnSinhVienMuonNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnSinhVienMuonNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSinhVienMuonNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSinhVienMuonNhat.ForeColor = System.Drawing.Color.White;
+            this.btnSinhVienMuonNhat.Location = new System.Drawing.Point(1025, 0);
+            this.btnSinhVienMuonNhat.Name = "btnSinhVienMuonNhat";
+            this.btnSinhVienMuonNhat.Size = new System.Drawing.Size(105, 59);
+            this.btnSinhVienMuonNhat.TabIndex = 10;
+            this.btnSinhVienMuonNhat.Text = "SV muộn nhất";
+            this.btnSinhVienMuonNhat.UseVisualStyleBackColor = false;
+            this.btnSinhVienMuonNhat.Click += new System.EventHandler(this.btnSinhVienMuonNhat_Click);
+            // 
+            // DangKyMonHoc
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ClientSize = new System.Drawing.Size(1200, 720);
+            this.Controls.Add(this.pnlAdvanced);
+            this.Controls.Add(this.pnlList);
+            this.Controls.Add(this.pnlChon);
+            this.Controls.Add(this.pnlHeader);
+            this.Name = "DangKyMonHoc";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Đăng ký môn học";
+            this.Load += new System.EventHandler(this.DangKyMonHoc_Load);
+            this.pnlHeader.ResumeLayout(false);
+            this.pnlHeader.PerformLayout();
+            this.pnlChon.ResumeLayout(false);
+            this.pnlChon.PerformLayout();
+            this.pnlList.ResumeLayout(false);
+            this.pnlList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDangKy)).EndInit();
+            this.pnlAdvanced.ResumeLayout(false);
+            this.pnlAdvanced.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+    }
+}

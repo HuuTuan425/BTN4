@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Models/Models.csproj" Id="5910e919-8697-435d-9c7e-bb10b5a2fcf6" />
+  <Project Path="Project/Views.csproj" Id="59bba59a-473c-4565-9505-18ab20c652ba" />
+  <Project Path="Views/Controllers.csproj" Id="28b18602-1172-4162-91f3-7ee5a9e8b525" />
+</Solution>
