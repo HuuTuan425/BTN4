@@ -8,11 +8,79 @@ namespace Project
     public partial class MonHoc : Form
     {
         private readonly MonHocController controller = new MonHocController();
+        private readonly ListBox lstMonHocGoiY = new ListBox();
+        private bool dangChonGoiY;
 
         public MonHoc()
         {
             InitializeComponent();
+            ConfigureSearchSuggestions();
             RefreshGrid(controller.GetAll());
+        }
+
+        private void ConfigureSearchSuggestions()
+        {
+            lstMonHocGoiY.Location = new System.Drawing.Point(txtTimKiem.Left, txtTimKiem.Bottom);
+            lstMonHocGoiY.Size = new System.Drawing.Size(txtTimKiem.Width, 150);
+            lstMonHocGoiY.Font = txtTimKiem.Font;
+            lstMonHocGoiY.Visible = false;
+            lstMonHocGoiY.IntegralHeight = false;
+            lstMonHocGoiY.FormattingEnabled = true;
+            lstMonHocGoiY.Format += lstMonHocGoiY_Format;
+            lstMonHocGoiY.MouseClick += lstMonHocGoiY_MouseClick;
+            lstMonHocGoiY.KeyDown += lstMonHocGoiY_KeyDown;
+            pnlList.Controls.Add(lstMonHocGoiY);
+            lstMonHocGoiY.BringToFront();
+            txtTimKiem.TextChanged += txtTimKiem_TextChanged;
+        }
+
+        private void txtTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            if (dangChonGoiY) return;
+
+            string ten = txtTimKiem.Text.Trim();
+            if (string.IsNullOrWhiteSpace(ten))
+            {
+                lstMonHocGoiY.Visible = false;
+                return;
+            }
+
+            var monHoc = controller.TimTenBatDau(ten);
+            lstMonHocGoiY.DataSource = monHoc;
+            lstMonHocGoiY.Visible = monHoc.Count > 0;
+            if (lstMonHocGoiY.Visible) lstMonHocGoiY.BringToFront();
+        }
+
+        private void lstMonHocGoiY_Format(object sender, ListControlConvertEventArgs e)
+        {
+            Models.MonHoc monHoc = e.ListItem as Models.MonHoc;
+            if (monHoc != null) e.Value = monHoc.TenMonHoc + " - " + monHoc.MaMonHoc;
+        }
+
+        private void lstMonHocGoiY_MouseClick(object sender, MouseEventArgs e)
+        {
+            ChonMonHocGoiY();
+        }
+
+        private void lstMonHocGoiY_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ChonMonHocGoiY();
+                e.Handled = true;
+            }
+        }
+
+        private void ChonMonHocGoiY()
+        {
+            Models.MonHoc monHoc = lstMonHocGoiY.SelectedItem as Models.MonHoc;
+            if (monHoc == null) return;
+
+            dangChonGoiY = true;
+            txtTimKiem.Text = monHoc.TenMonHoc;
+            txtTimKiem.SelectionStart = txtTimKiem.TextLength;
+            dangChonGoiY = false;
+            lstMonHocGoiY.Visible = false;
         }
 
         private void btnBackHome_Click(object sender, EventArgs e)
@@ -24,6 +92,7 @@ namespace Project
         {
             dgv.DataSource = null;
             dgv.DataSource = data;
+
             if (dgv.Columns.Count > 0)
             {
                 dgv.Columns["MaMonHoc"].HeaderText = "Mã môn";
@@ -108,6 +177,14 @@ namespace Project
             txtTen.Text = monHoc.TenMonHoc;
             nudTinChi.Value = monHoc.SoTinChi;
             nudSoTiet.Value = monHoc.SoTietHoc;
+        }
+
+        private void dgv_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (dgv.HitTest(e.X, e.Y).RowIndex >= 0) return;
+
+            dgv.ClearSelection();
+            dgv.CurrentCell = null;
         }
 
         private void ClearInputs()

@@ -33,7 +33,6 @@
         private System.Windows.Forms.Panel pnlAdvanced;
         private System.Windows.Forms.Button btnSapXepTen;
         private System.Windows.Forms.Button btnSinhVienDangKyNhieuNhat;
-        private System.Windows.Forms.Button btnHienThiTatCa;
 
         protected override void Dispose(bool disposing)
         {
@@ -69,7 +68,6 @@
             this.pnlAdvanced = new System.Windows.Forms.Panel();
             this.btnSapXepTen = new System.Windows.Forms.Button();
             this.btnSinhVienDangKyNhieuNhat = new System.Windows.Forms.Button();
-            this.btnHienThiTatCa = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
@@ -259,10 +257,10 @@
             this.dgvSinhVien.Size = new System.Drawing.Size(740, 407);
             this.dgvSinhVien.TabIndex = 3;
             this.dgvSinhVien.SelectionChanged += new System.EventHandler(this.dgvSinhVien_SelectionChanged);
+            this.dgvSinhVien.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSinhVien_MouseClick);
             this.pnlAdvanced.BackColor = System.Drawing.Color.White;
             this.pnlAdvanced.Controls.Add(this.btnSapXepTen);
             this.pnlAdvanced.Controls.Add(this.btnSinhVienDangKyNhieuNhat);
-            this.pnlAdvanced.Controls.Add(this.btnHienThiTatCa);
             this.pnlAdvanced.Location = new System.Drawing.Point(25, 635);
             this.pnlAdvanced.Name = "pnlAdvanced";
             this.pnlAdvanced.Size = new System.Drawing.Size(1150, 62);
@@ -289,17 +287,6 @@
             this.btnSinhVienDangKyNhieuNhat.Text = "SV đăng ký nhiều nhất";
             this.btnSinhVienDangKyNhieuNhat.UseVisualStyleBackColor = false;
             this.btnSinhVienDangKyNhieuNhat.Click += new System.EventHandler(this.btnSinhVienDangKyNhieuNhat_Click);
-            this.btnHienThiTatCa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.btnHienThiTatCa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHienThiTatCa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHienThiTatCa.ForeColor = System.Drawing.Color.White;
-            this.btnHienThiTatCa.Location = new System.Drawing.Point(706, 0);
-            this.btnHienThiTatCa.Name = "btnHienThiTatCa";
-            this.btnHienThiTatCa.Size = new System.Drawing.Size(177, 62);
-            this.btnHienThiTatCa.TabIndex = 4;
-            this.btnHienThiTatCa.Text = "Hiển thị tất cả";
-            this.btnHienThiTatCa.UseVisualStyleBackColor = false;
-            this.btnHienThiTatCa.Click += new System.EventHandler(this.btnHienThiTatCa_Click); 
             this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

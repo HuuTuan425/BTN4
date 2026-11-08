@@ -8,10 +8,79 @@ namespace Project
     public partial class SinhVien : Form
     {
         private readonly SinhVienController controller = new SinhVienController();
+        private readonly ListBox lstSinhVienGoiY = new ListBox();
+        private bool dangChonGoiY;
+
         public SinhVien()
         {
             InitializeComponent();
+            ConfigureSearchSuggestions();
             RefreshGrid(controller.GetAll());
+        }
+
+        private void ConfigureSearchSuggestions()
+        {
+            lstSinhVienGoiY.Location = new System.Drawing.Point(txtTimKiem.Left, txtTimKiem.Bottom);
+            lstSinhVienGoiY.Size = new System.Drawing.Size(txtTimKiem.Width, 150);
+            lstSinhVienGoiY.Font = txtTimKiem.Font;
+            lstSinhVienGoiY.Visible = false;
+            lstSinhVienGoiY.IntegralHeight = false;
+            lstSinhVienGoiY.FormattingEnabled = true;
+            lstSinhVienGoiY.Format += lstSinhVienGoiY_Format;
+            lstSinhVienGoiY.MouseClick += lstSinhVienGoiY_MouseClick;
+            lstSinhVienGoiY.KeyDown += lstSinhVienGoiY_KeyDown;
+            pnlList.Controls.Add(lstSinhVienGoiY);
+            lstSinhVienGoiY.BringToFront();
+            txtTimKiem.TextChanged += txtTimKiem_TextChanged;
+        }
+
+        private void txtTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            if (dangChonGoiY) return;
+
+            string ten = txtTimKiem.Text.Trim();
+            if (string.IsNullOrWhiteSpace(ten))
+            {
+                lstSinhVienGoiY.Visible = false;
+                return;
+            }
+
+            var sinhVien = controller.TimTenBatDau(ten);
+            lstSinhVienGoiY.DataSource = sinhVien;
+            lstSinhVienGoiY.Visible = sinhVien.Count > 0;
+            if (lstSinhVienGoiY.Visible) lstSinhVienGoiY.BringToFront();
+        }
+
+        private void lstSinhVienGoiY_Format(object sender, ListControlConvertEventArgs e)
+        {
+            Models.SinhVien sinhVien = e.ListItem as Models.SinhVien;
+            if (sinhVien != null) e.Value = sinhVien.HoTen + " - " + sinhVien.MaSinhVien;
+        }
+
+        private void lstSinhVienGoiY_MouseClick(object sender, MouseEventArgs e)
+        {
+            ChonSinhVienGoiY();
+        }
+
+        private void lstSinhVienGoiY_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ChonSinhVienGoiY();
+                e.Handled = true;
+            }
+        }
+
+        private void ChonSinhVienGoiY()
+        {
+            Models.SinhVien sinhVien = lstSinhVienGoiY.SelectedItem as Models.SinhVien;
+            if (sinhVien == null) return;
+
+            dangChonGoiY = true;
+            txtTimKiem.Text = sinhVien.HoTen;
+            txtTimKiem.SelectionStart = txtTimKiem.TextLength;
+            dangChonGoiY = false;
+            lstSinhVienGoiY.Visible = false;
         }
 
         private void btnBackHome_Click(object sender, EventArgs e)
@@ -111,6 +180,14 @@ namespace Project
             txtEmail.Text = sinhVien.Email;
             txtSoDienThoai.Text = sinhVien.SoDienThoai;
             txtChuyenNganh.Text = sinhVien.ChuyenNganh;
+        }
+
+        private void dgvSinhVien_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (dgvSinhVien.HitTest(e.X, e.Y).RowIndex >= 0) return;
+
+            dgvSinhVien.ClearSelection();
+            dgvSinhVien.CurrentCell = null;
         }
 
         private void ShowStudents(System.Collections.Generic.List<Models.SinhVien> students, string title)

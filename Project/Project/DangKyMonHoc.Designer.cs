@@ -311,6 +311,8 @@ namespace Project
             this.dgvDangKy.Size = new System.Drawing.Size(730, 390);
             this.dgvDangKy.TabIndex = 2;
             this.dgvDangKy.SelectionChanged += new System.EventHandler(this.dgvDangKy_SelectionChanged);
+            this.dgvDangKy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvDangKy_KeyDown);
+            this.dgvDangKy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvDangKy_MouseClick);
             this.pnlAdvanced.BackColor = System.Drawing.Color.White;
             this.pnlAdvanced.Controls.Add(this.lblMaSinhVienTim);
             this.pnlAdvanced.Controls.Add(this.txtMaSinhVienTim);

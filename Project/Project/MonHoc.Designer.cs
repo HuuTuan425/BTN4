@@ -27,7 +27,6 @@
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.Button btnSapXep;
         private System.Windows.Forms.Button btnThongKe;
-        private System.Windows.Forms.Button btnHienThiTatCa;
         private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMaMonHoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTenMonHoc;
@@ -69,7 +68,6 @@
             this.pnlAdvanced = new System.Windows.Forms.Panel();
             this.btnSapXep = new System.Windows.Forms.Button();
             this.btnThongKe = new System.Windows.Forms.Button();
-            this.btnHienThiTatCa = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.pnlInput.SuspendLayout();
@@ -302,10 +300,10 @@
             this.dgv.TabIndex = 3;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             this.dgv.SelectionChanged += new System.EventHandler(this.Dgv_SelectionChanged);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             this.pnlAdvanced.BackColor = System.Drawing.Color.White;
             this.pnlAdvanced.Controls.Add(this.btnSapXep);
             this.pnlAdvanced.Controls.Add(this.btnThongKe);
-            this.pnlAdvanced.Controls.Add(this.btnHienThiTatCa);
             this.pnlAdvanced.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlAdvanced.Location = new System.Drawing.Point(0, 596);
             this.pnlAdvanced.Name = "pnlAdvanced";
@@ -333,17 +331,6 @@
             this.btnThongKe.Text = "Môn ĐK nhiều nhất";
             this.btnThongKe.UseVisualStyleBackColor = false;
             this.btnThongKe.Click += new System.EventHandler(this.Statistics_Click);
-            this.btnHienThiTatCa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.btnHienThiTatCa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHienThiTatCa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHienThiTatCa.ForeColor = System.Drawing.Color.White;
-            this.btnHienThiTatCa.Location = new System.Drawing.Point(682, 3);
-            this.btnHienThiTatCa.Name = "btnHienThiTatCa";
-            this.btnHienThiTatCa.Size = new System.Drawing.Size(181, 51);
-            this.btnHienThiTatCa.TabIndex = 2;
-            this.btnHienThiTatCa.Text = "Hiển thị tất cả";
-            this.btnHienThiTatCa.UseVisualStyleBackColor = false;
-            this.btnHienThiTatCa.Click += new System.EventHandler(this.btnHienThiTatCa_Click);
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));

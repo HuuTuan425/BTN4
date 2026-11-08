@@ -33,7 +33,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
@@ -304,7 +303,7 @@
 
         }
 
-        #endregion
+        
     }
 }
 
