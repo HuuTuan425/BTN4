@@ -33,6 +33,8 @@ namespace Controllers
             error = string.Empty; try { using (var cn = AppData.OpenConnection()) using (var cmd = new SqlCommand("DELETE FROM MonHoc WHERE MaMonHoc=@ma", cn)) { cmd.Parameters.AddWithValue("@ma", ma); if (cmd.ExecuteNonQuery() == 0) { error = "Không tìm thấy môn học cần xóa."; return false; } return true; } } catch (Exception ex) { error = ex.Message; return false; }
         }
         public List<MonHoc> TimGanDung(string ten) { return string.IsNullOrWhiteSpace(ten) ? GetAll() : Query("SELECT * FROM MonHoc WHERE TenMonHoc LIKE @ten ORDER BY MaMonHoc", new SqlParameter("@ten", "%" + ten.Trim() + "%")); }
+        public List<MonHoc> TimTenBatDau(string ten) { return string.IsNullOrWhiteSpace(ten) ? new List<MonHoc>() : Query("SELECT TOP 8 * FROM MonHoc WHERE TenMonHoc LIKE @ten + '%' ORDER BY TenMonHoc", new SqlParameter("@ten", ten.Trim())); }
+        public List<MonHoc> TimTheoMaBatDau(string ma) { return string.IsNullOrWhiteSpace(ma) ? new List<MonHoc>() : Query("SELECT TOP 8 * FROM MonHoc WHERE CAST(MaMonHoc AS VARCHAR(20)) LIKE @ma + '%' ORDER BY MaMonHoc", new SqlParameter("@ma", ma.Trim())); }
         public List<MonHoc> SapXepTheoTinChi() { return Query("SELECT * FROM MonHoc ORDER BY SoTinChi DESC"); }
         public MonHoc TimTheoMa(int ma) { return Query("SELECT * FROM MonHoc WHERE MaMonHoc=@ma", new SqlParameter("@ma", ma)).FirstOrDefault(); }
         public List<MonHoc> TimDangKyNhieuNhat() { return Query("SELECT m.* FROM MonHoc m LEFT JOIN DangKyMonHoc d ON d.MaMonHoc=m.MaMonHoc GROUP BY m.MaMonHoc,m.TenMonHoc,m.SoTinChi,m.SoTietHoc HAVING COUNT(d.MaDangKy)=(SELECT MAX(x.c) FROM (SELECT COUNT(*) c FROM DangKyMonHoc GROUP BY MaMonHoc) x)"); }

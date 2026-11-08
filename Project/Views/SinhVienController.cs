@@ -91,7 +91,9 @@ namespace Controllers
         }
 
         public List<SinhVien> TimGanDung(string ten) { return string.IsNullOrWhiteSpace(ten) ? GetAll() : Query("SELECT * FROM SinhVien WHERE HoTen LIKE @ten ORDER BY MaSinhVien", new SqlParameter("@ten", "%" + ten.Trim() + "%")); }
-        public List<SinhVien> SapXepTheoTen() { return Query("SELECT * FROM SinhVien ORDER BY HoTen"); }
+        public List<SinhVien> TimTenBatDau(string ten) { return string.IsNullOrWhiteSpace(ten) ? new List<SinhVien>() : Query("SELECT TOP 8 * FROM SinhVien WHERE HoTen LIKE @ten + '%' ORDER BY HoTen", new SqlParameter("@ten", ten.Trim())); }
+        public List<SinhVien> TimTheoMaBatDau(string ma) { return string.IsNullOrWhiteSpace(ma) ? new List<SinhVien>() : Query("SELECT TOP 8 * FROM SinhVien WHERE MaSinhVien LIKE @ma + '%' ORDER BY MaSinhVien", new SqlParameter("@ma", ma.Trim())); }
+        public List<SinhVien> SapXepTheoTen() { return Query("SELECT * FROM SinhVien ORDER BY RIGHT(HoTen, CHARINDEX(' ', REVERSE(HoTen)) - 1), HoTen"); }
         public SinhVien TimTheoMa(string ma) { return Query("SELECT * FROM SinhVien WHERE MaSinhVien=@ma", new SqlParameter("@ma", (ma ?? string.Empty).Trim())).FirstOrDefault(); }
         public List<SinhVien> TimDangKyNhieuNhat() { return Query("SELECT s.* FROM SinhVien s LEFT JOIN DangKyMonHoc d ON d.MaSinhVien=s.MaSinhVien GROUP BY s.MaSinhVien,s.HoTen,s.NgaySinh,s.Email,s.SoDienThoai,s.ChuyenNganh HAVING COUNT(d.MaDangKy)=(SELECT MAX(x.c) FROM (SELECT COUNT(*) c FROM DangKyMonHoc GROUP BY MaSinhVien) x)"); }
         public List<SinhVien> TimDangKySomNhat() { return Query("SELECT DISTINCT s.* FROM SinhVien s JOIN DangKyMonHoc d ON d.MaSinhVien=s.MaSinhVien WHERE d.ThoiGianDangKy=(SELECT MIN(ThoiGianDangKy) FROM DangKyMonHoc)"); }
