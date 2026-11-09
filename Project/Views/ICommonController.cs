@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Controllers
 {
-    public interface ICommonController
+
+    //  đọc dữ liệu dùng chung cho một controller.
+    public interface ICommonController<T>
     {
+        List<T> GetAll();
     }
 }

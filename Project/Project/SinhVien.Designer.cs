@@ -407,6 +407,7 @@
             this.dgvSinhVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSinhVien.Size = new System.Drawing.Size(740, 407);
             this.dgvSinhVien.TabIndex = 3;
+            this.dgvSinhVien.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSinhVien_CellContentClick);
             this.dgvSinhVien.SelectionChanged += new System.EventHandler(this.dgvSinhVien_SelectionChanged);
             this.dgvSinhVien.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvSinhVien_MouseClick);
             // 

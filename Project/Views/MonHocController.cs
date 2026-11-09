@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using Models;
 
 namespace Controllers
 {
-    public class MonHocController
+    public class MonHocController : ICommonController<MonHoc>, IIOController
     {
         private static MonHoc Read(SqlDataReader r)
         {
@@ -17,6 +18,28 @@ namespace Controllers
             var result = new List<MonHoc>(); using (var cn = AppData.OpenConnection()) using (var cmd = new SqlCommand(sql, cn)) { cmd.Parameters.AddRange(parameters); using (var r = cmd.ExecuteReader()) while (r.Read()) result.Add(Read(r)); } return result;
         }
         public List<MonHoc> GetAll() { return Query("SELECT * FROM MonHoc ORDER BY MaMonHoc"); }
+
+        public void ExportCsv(string filePath)
+        {
+            var lines = new List<string>
+            {
+                "MaMonHoc,TenMonHoc,SoTinChi,SoTietHoc"
+            };
+
+            foreach (var monHoc in GetAll())
+            {
+                lines.Add(string.Join(",", monHoc.MaMonHoc, Csv(monHoc.TenMonHoc),
+                    monHoc.SoTinChi, monHoc.SoTietHoc));
+            }
+
+            File.WriteAllLines(filePath, lines, System.Text.Encoding.UTF8);
+        }
+
+        private static string Csv(string value)
+        {
+            value = value ?? string.Empty;
+            return "\"" + value.Replace("\"", "\"\"") + "\"";
+        }
         public bool Them(string ten, int tinChi, int soTiet, out string error)
         {
             error = string.Empty; if (string.IsNullOrWhiteSpace(ten)) { error = "Tên môn học không được để trống."; return false; } if (tinChi <= 0 || soTiet <= 0) { error = "Số tín chỉ và số tiết học phải lớn hơn 0."; return false; }

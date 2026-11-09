@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Models;
 
 namespace Controllers
 {
-    public class SinhVienController
+    public class SinhVienController : ICommonController<SinhVien>, IIOController
     {
         private static SinhVien Read(SqlDataReader r)
         {
@@ -23,6 +24,29 @@ namespace Controllers
         }
 
         public List<SinhVien> GetAll() { return Query("SELECT * FROM SinhVien ORDER BY MaSinhVien"); }
+
+        public void ExportCsv(string filePath)
+        {
+            var lines = new List<string>
+            {
+                "MaSinhVien,HoTen,NgaySinh,Email,SoDienThoai,ChuyenNganh"
+            };
+
+            foreach (var sinhVien in GetAll())
+            {
+                lines.Add(string.Join(",", Csv(sinhVien.MaSinhVien), Csv(sinhVien.HoTen),
+                    sinhVien.NgaySinh.ToString("yyyy-MM-dd"), Csv(sinhVien.Email),
+                    Csv(sinhVien.SoDienThoai), Csv(sinhVien.ChuyenNganh)));
+            }
+
+            File.WriteAllLines(filePath, lines, System.Text.Encoding.UTF8);
+        }
+
+        private static string Csv(string value)
+        {
+            value = value ?? string.Empty;
+            return "\"" + value.Replace("\"", "\"\"") + "\"";
+        }
 
         private static List<SinhVien> Query(string sql, params SqlParameter[] parameters)
         {

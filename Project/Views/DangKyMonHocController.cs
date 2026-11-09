@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using Models;
 
@@ -16,7 +17,7 @@ namespace Controllers
         public DateTime ThoiGianDangKy { get; set; }
     }
 
-    public class DangKyMonHocController
+    public class DangKyMonHocController : ICommonController<DangKyDisplay>, IIOController
     {
         private const string Select = "SELECT d.MaDangKy,d.MaSinhVien,s.HoTen,d.MaMonHoc,m.TenMonHoc,d.ThoiGianDangKy FROM DangKyMonHoc d JOIN SinhVien s ON s.MaSinhVien=d.MaSinhVien JOIN MonHoc m ON m.MaMonHoc=d.MaMonHoc";
         private static DangKyDisplay Read(SqlDataReader r) { return new DangKyDisplay { MaDangKy = Convert.ToInt32(r["MaDangKy"]), MaSinhVien = r["MaSinhVien"].ToString(), HoTen = r["HoTen"].ToString(), MaMonHoc = Convert.ToInt32(r["MaMonHoc"]), TenMonHoc = r["TenMonHoc"].ToString(), ThoiGianDangKy = Convert.ToDateTime(r["ThoiGianDangKy"]) }; }
@@ -25,6 +26,29 @@ namespace Controllers
             var result = new List<DangKyDisplay>(); using (var cn = AppData.OpenConnection()) using (var cmd = new SqlCommand(sql, cn)) { cmd.Parameters.AddRange(parameters); using (var r = cmd.ExecuteReader()) while (r.Read()) result.Add(Read(r)); } return result;
         }
         public List<DangKyDisplay> GetAll() { return Query(Select + " ORDER BY d.MaDangKy"); }
+
+        public void ExportCsv(string filePath)
+        {
+            var lines = new List<string>
+            {
+                "MaDangKy,MaSinhVien,HoTen,MaMonHoc,TenMonHoc,ThoiGianDangKy"
+            };
+
+            foreach (var dangKy in GetAll())
+            {
+                lines.Add(string.Join(",", dangKy.MaDangKy, Csv(dangKy.MaSinhVien),
+                    Csv(dangKy.HoTen), dangKy.MaMonHoc, Csv(dangKy.TenMonHoc),
+                    dangKy.ThoiGianDangKy.ToString("yyyy-MM-dd HH:mm:ss")));
+            }
+
+            File.WriteAllLines(filePath, lines, System.Text.Encoding.UTF8);
+        }
+
+        private static string Csv(string value)
+        {
+            value = value ?? string.Empty;
+            return "\"" + value.Replace("\"", "\"\"") + "\"";
+        }
         public bool Them(string maSinhVien, int maMonHoc, out string error)
         {
             error = string.Empty; try { using (var cn = AppData.OpenConnection()) using (var cmd = new SqlCommand("INSERT INTO DangKyMonHoc(MaSinhVien,MaMonHoc,ThoiGianDangKy) VALUES(@sv,@mh,GETDATE())", cn)) { cmd.Parameters.AddWithValue("@sv", maSinhVien.Trim()); cmd.Parameters.AddWithValue("@mh", maMonHoc); cmd.ExecuteNonQuery(); return true; } } catch (SqlException ex) { error = ex.Number == 2627 ? "Sinh viên đã đăng ký môn học này." : ex.Number == 547 ? "Không tìm thấy sinh viên hoặc môn học." : ex.Message; return false; } catch (Exception ex) { error = ex.Message; return false; }
