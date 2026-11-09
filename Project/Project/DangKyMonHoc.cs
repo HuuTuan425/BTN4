@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -12,6 +13,8 @@ namespace Project
         private readonly DangKyMonHocController controller = new DangKyMonHocController();
         private readonly SinhVienController sinhVienController = new SinhVienController();
         private readonly MonHocController monHocController = new MonHocController();
+        private readonly Label lblListStatus = new Label();
+        private List<DangKyDisplay> danhSachGoc = new List<DangKyDisplay>();
         private readonly ListBox lstSinhVienGoiY = new ListBox();
         private readonly ListBox lstMonHocGoiY = new ListBox();
         private bool dangChonGoiY;
@@ -21,7 +24,78 @@ namespace Project
             InitializeComponent();
             ConfigureStudentSuggestions();
             ConfigureSubjectSuggestions();
-            RefreshGrid(controller.GetAll());
+            ConfigureListStatus();
+            ConfigureResponsiveLayout();
+            Resize += DangKyMonHoc_Resize;
+            danhSachGoc = controller.GetAll();
+            RefreshGrid(danhSachGoc);
+            UpdateListStatus();
+        }
+
+        private void ConfigureResponsiveLayout()
+        {
+            MinimumSize = new System.Drawing.Size(1000, 650);
+
+            pnlHeader.Dock = DockStyle.Top;
+            pnlAdvanced.Dock = DockStyle.None;
+            pnlAdvanced.BringToFront();
+            pnlAdvanced.WrapContents = false;
+            pnlAdvanced.AutoScroll = true;
+            pnlChon.Dock = DockStyle.Left;
+            pnlList.Dock = DockStyle.None;
+            pnlList.BringToFront();
+            pnlList.Padding = new Padding(0, 0, 10, 0);
+
+            dgvDangKy.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvDangKy.BorderStyle = BorderStyle.FixedSingle;
+            dgvDangKy.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dgvDangKy.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            lblListStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnHuyDangKy.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            LayoutResponsivePanels();
+        }
+
+        private void DangKyMonHoc_Resize(object sender, EventArgs e)
+        {
+            LayoutResponsivePanels();
+        }
+
+        private void LayoutResponsivePanels()
+        {
+            if (pnlHeader == null || pnlChon == null || pnlList == null || pnlAdvanced == null) return;
+
+            int headerHeight = pnlHeader.Height;
+            int advancedHeight = pnlAdvanced.Height;
+            int contentHeight = Math.Max(0, ClientSize.Height - headerHeight - advancedHeight);
+
+            pnlAdvanced.Location = new System.Drawing.Point(0, ClientSize.Height - advancedHeight);
+            pnlAdvanced.Size = new System.Drawing.Size(ClientSize.Width, advancedHeight);
+
+            pnlChon.Location = new System.Drawing.Point(0, headerHeight);
+            pnlChon.Size = new System.Drawing.Size(pnlChon.Width, contentHeight);
+
+            pnlList.Location = new System.Drawing.Point(pnlChon.Width, headerHeight);
+            pnlList.Size = new System.Drawing.Size(Math.Max(0, ClientSize.Width - pnlChon.Width), contentHeight);
+
+            dgvDangKy.Location = new System.Drawing.Point(20, 70);
+            dgvDangKy.Size = new System.Drawing.Size(Math.Max(0, pnlList.ClientSize.Width - 30), Math.Max(0, pnlList.ClientSize.Height - 90));
+            btnHuyDangKy.Location = new System.Drawing.Point(Math.Max(0, pnlList.ClientSize.Width - btnHuyDangKy.Width - 15), btnHuyDangKy.Top);
+        }
+
+        private void ConfigureListStatus()
+        {
+            lblListStatus.AutoSize = false;
+            lblListStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(80, 80, 80);
+            lblListStatus.Location = new System.Drawing.Point(20, 42);
+            lblListStatus.Size = new System.Drawing.Size(730, 22);
+            lblListStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            pnlList.Controls.Add(lblListStatus);
+            lblListStatus.BringToFront();
+
+            dgvDangKy.Location = new System.Drawing.Point(20, 70);
+            dgvDangKy.Size = new System.Drawing.Size(730, 385);
         }
 
         private void ConfigureSubjectSuggestions()
@@ -179,15 +253,45 @@ namespace Project
             else MessageBox.Show("Mã môn học không hợp lệ.");
         }
 
-        private void btnTheoThoiGian_Click(object sender, EventArgs e) { RefreshGrid(controller.SapXepTheoThoiGian()); }
+        private void btnTheoThoiGian_Click(object sender, EventArgs e)
+        {
+            RefreshGrid(controller.SapXepTheoThoiGian());
+            UpdateListStatus();
+        }
 
-        private void btnTheoMaSinhVien_Click(object sender, EventArgs e) { RefreshGrid(controller.SapXepTheoMaSinhVien()); }
+        private void btnTheoMaSinhVien_Click(object sender, EventArgs e)
+        {
+            RefreshGrid(controller.SapXepTheoMaSinhVien());
+            UpdateListStatus();
+        }
 
-        private void btnTheoMaMonHoc_Click(object sender, EventArgs e) { RefreshGrid(controller.SapXepTheoMaMonHoc()); }
+        private void btnTheoMaMonHoc_Click(object sender, EventArgs e)
+        {
+            RefreshGrid(controller.SapXepTheoMaMonHoc());
+            UpdateListStatus();
+        }
 
-        private void btnSinhVienSomNhat_Click(object sender, EventArgs e) { ShowRegistrations(controller.TimSinhVienDangKySomNhat(), "Sinh viên đăng ký sớm nhất"); }
+        private void btnSinhVienSomNhat_Click(object sender, EventArgs e)
+        {
+            List<DangKyDisplay> rows = controller.TimSinhVienDangKySomNhat();
+            RefreshGrid(rows);
+            lblListStatus.Text = rows.Count == 0
+                ? "Chưa có dữ liệu đăng ký."
+                : "Đang hiển thị sinh viên đăng ký sớm nhất.";
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(0, 123, 255);
+            SelectFirstRegistration();
+        }
 
-        private void btnSinhVienMuonNhat_Click(object sender, EventArgs e) { ShowRegistrations(controller.TimSinhVienDangKyMuonNhat(), "Sinh viên đăng ký muộn nhất"); }
+        private void btnSinhVienMuonNhat_Click(object sender, EventArgs e)
+        {
+            List<DangKyDisplay> rows = controller.TimSinhVienDangKyMuonNhat();
+            RefreshGrid(rows);
+            lblListStatus.Text = rows.Count == 0
+                ? "Chưa có dữ liệu đăng ký."
+                : "Đang hiển thị sinh viên đăng ký muộn nhất.";
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(0, 123, 255);
+            SelectFirstRegistration();
+        }
 
         private void RefreshGrid(object data)
         {
@@ -233,19 +337,45 @@ namespace Project
                 return;
             }
 
-            string error; if (controller.Them(maSinhVien, maMonHoc, out error)) { RefreshGrid(controller.GetAll()); MessageBox.Show("Đã đăng ký môn học."); } else MessageBox.Show(error, "Không thể đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            string error;
+            if (controller.Them(maSinhVien, maMonHoc, out error))
+            {
+                danhSachGoc = controller.GetAll();
+                RefreshGrid(danhSachGoc);
+                UpdateListStatus();
+                MessageBox.Show("Đã đăng ký môn học.");
+            }
+            else MessageBox.Show(error, "Không thể đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnHuyDangKy_Click(object sender, EventArgs e)
         {
             int maDangKy;
             if (!int.TryParse(txtMaDangKy.Text.Trim(), out maDangKy)) { MessageBox.Show("Vui lòng chọn bản đăng ký cần hủy."); return; }
-            string error; if (controller.Xoa(maDangKy, out error)) { RefreshGrid(controller.GetAll()); txtMaDangKy.Clear(); MessageBox.Show("Đã xóa bản đăng ký."); } else MessageBox.Show(error, "Không thể xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            string error;
+            if (controller.Xoa(maDangKy, out error))
+            {
+                danhSachGoc = controller.GetAll();
+                RefreshGrid(danhSachGoc);
+                UpdateListStatus();
+                txtMaDangKy.Clear();
+                MessageBox.Show("Đã xóa bản đăng ký.");
+            }
+            else MessageBox.Show(error, "Không thể xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            txtMaSinhVien.Clear(); txtMaMonHoc.Clear(); txtMaDangKy.Clear(); txtMaSinhVienTim.Clear(); txtMaMonHocTim.Clear(); ClearMonHocPreview(); RefreshGrid(controller.GetAll());
+            txtMaSinhVien.Clear();
+            txtMaMonHoc.Clear();
+            txtMaDangKy.Clear();
+            txtMaSinhVienTim.Clear();
+            txtMaMonHocTim.Clear();
+            ClearMonHocPreview();
+            danhSachGoc = controller.GetAll();
+            RefreshGrid(danhSachGoc);
+            UpdateListStatus();
+            dgvDangKy.ClearSelection();
         }
 
         private void txtMaMonHoc_TextChanged(object sender, EventArgs e)
@@ -259,7 +389,6 @@ namespace Project
 
         private void ClearMonHocPreview()
         {
-            // Keep the placeholder visible both at design time and before a valid subject is selected.
             lblMaMonHocValue.Text = "-";
             lblTinChiValue.Text = "-";
             lblSoTietValue.Text = "-";
@@ -294,20 +423,36 @@ namespace Project
 
         private void btnHienThiTatCa_Click(object sender, EventArgs e)
         {
-            RefreshGrid(controller.GetAll());
+            danhSachGoc = controller.GetAll();
+            RefreshGrid(danhSachGoc);
+            UpdateListStatus();
         }
 
         private void DangKyMonHoc_Load(object sender, EventArgs e)
         {
         }
 
-        private void ShowRegistrations(System.Collections.Generic.List<DangKyDisplay> rows, string title)
+        private void UpdateListStatus()
         {
-            if (rows.Count == 0) { MessageBox.Show("Chưa có dữ liệu.", title); return; }
-            MessageBox.Show(string.Join(Environment.NewLine, rows.Select(x => x.MaSinhVien + " - " + x.HoTen + " - " + x.ThoiGianDangKy)), title);
+            lblListStatus.Text = string.Format("Tổng số đăng ký: {0}", danhSachGoc.Count);
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(80, 80, 80);
+        }
+
+        private void SelectFirstRegistration()
+        {
+            if (dgvDangKy.Rows.Count == 0) return;
+
+            dgvDangKy.ClearSelection();
+            dgvDangKy.CurrentCell = dgvDangKy.Rows[0].Cells[0];
+            dgvDangKy.Rows[0].Selected = true;
         }
 
         private void lblMaSinhVienTim_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvDangKy_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

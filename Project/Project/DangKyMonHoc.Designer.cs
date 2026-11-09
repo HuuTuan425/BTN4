@@ -107,7 +107,7 @@ namespace Project
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1200, 76);
-            this.pnlHeader.TabIndex = 2;
+            this.pnlHeader.TabIndex = 2; 
             this.picLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picLogo.BackColor = System.Drawing.Color.Transparent;
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
@@ -128,7 +128,7 @@ namespace Project
             this.btnBackHome.TabIndex = 3;
             this.btnBackHome.Text = "⬅";
             this.btnBackHome.UseVisualStyleBackColor = false;
-            this.btnBackHome.Click += new System.EventHandler(this.btnBackHome_Click);
+            this.btnBackHome.Click += new System.EventHandler(this.btnBackHome_Click); 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 21F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(45)))), ((int)(((byte)(61)))));
@@ -157,7 +157,7 @@ namespace Project
             this.pnlChon.Location = new System.Drawing.Point(25, 98);
             this.pnlChon.Name = "pnlChon";
             this.pnlChon.Size = new System.Drawing.Size(374, 522);
-            this.pnlChon.TabIndex = 1;
+            this.pnlChon.TabIndex = 1; 
             this.lblChonTitle.AutoSize = true;
             this.lblChonTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChonTitle.Location = new System.Drawing.Point(20, 18);
@@ -169,7 +169,7 @@ namespace Project
             this.lblSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSinhVien.Location = new System.Drawing.Point(20, 75);
             this.lblSinhVien.Name = "lblSinhVien";
-            this.lblSinhVien.Size = new System.Drawing.Size(93, 22);
+            this.lblSinhVien.Size = new System.Drawing.Size(122, 22);
             this.lblSinhVien.TabIndex = 1;
             this.lblSinhVien.Text = "Mã sinh viên";
             this.txtMaSinhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -181,7 +181,7 @@ namespace Project
             this.lblMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMonHoc.Location = new System.Drawing.Point(20, 145);
             this.lblMonHoc.Name = "lblMonHoc";
-            this.lblMonHoc.Size = new System.Drawing.Size(85, 22);
+            this.lblMonHoc.Size = new System.Drawing.Size(117, 22);
             this.lblMonHoc.TabIndex = 3;
             this.lblMonHoc.Text = "Mã môn học";
             this.txtMaMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -207,7 +207,7 @@ namespace Project
             this.lblMaMonHocValue.Name = "lblMaMonHocValue";
             this.lblMaMonHocValue.Size = new System.Drawing.Size(20, 25);
             this.lblMaMonHocValue.TabIndex = 6;
-            this.lblMaMonHocValue.Text = "-"; 
+            this.lblMaMonHocValue.Text = "-";
             this.lblTinChi.AutoSize = true;
             this.lblTinChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTinChi.Location = new System.Drawing.Point(20, 255);
@@ -240,7 +240,7 @@ namespace Project
             this.lblMaDangKy.Name = "lblMaDangKy";
             this.lblMaDangKy.Size = new System.Drawing.Size(112, 22);
             this.lblMaDangKy.TabIndex = 11;
-            this.lblMaDangKy.Text = "Mã đăng ký";
+            this.lblMaDangKy.Text = "Mã đăng ký"; 
             this.btnDangKy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.btnDangKy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -310,6 +310,7 @@ namespace Project
             this.dgvDangKy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDangKy.Size = new System.Drawing.Size(730, 390);
             this.dgvDangKy.TabIndex = 2;
+            this.dgvDangKy.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDangKy_CellContentClick);
             this.dgvDangKy.SelectionChanged += new System.EventHandler(this.dgvDangKy_SelectionChanged);
             this.dgvDangKy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvDangKy_KeyDown);
             this.dgvDangKy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvDangKy_MouseClick);
@@ -329,7 +330,7 @@ namespace Project
             this.pnlAdvanced.Location = new System.Drawing.Point(25, 635);
             this.pnlAdvanced.Name = "pnlAdvanced";
             this.pnlAdvanced.Size = new System.Drawing.Size(1150, 62);
-            this.pnlAdvanced.TabIndex = 3;
+            this.pnlAdvanced.TabIndex = 3; 
             this.lblMaSinhVienTim.AutoSize = true;
             this.lblMaSinhVienTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaSinhVienTim.Location = new System.Drawing.Point(3, 0);
@@ -396,7 +397,7 @@ namespace Project
             this.btnTheoMaSinhVien.TabIndex = 7;
             this.btnTheoMaSinhVien.Text = "Theo mã SV";
             this.btnTheoMaSinhVien.UseVisualStyleBackColor = false;
-            this.btnTheoMaSinhVien.Click += new System.EventHandler(this.btnTheoMaSinhVien_Click); 
+            this.btnTheoMaSinhVien.Click += new System.EventHandler(this.btnTheoMaSinhVien_Click);
             this.btnTheoMaMonHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnTheoMaMonHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTheoMaMonHoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -421,7 +422,6 @@ namespace Project
             this.btnSinhVienSomNhat.Click += new System.EventHandler(this.btnSinhVienSomNhat_Click);
             this.btnSinhVienMuonNhat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.btnSinhVienMuonNhat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pnlAdvanced.SetFlowBreak(this.btnSinhVienMuonNhat, true);
             this.btnSinhVienMuonNhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSinhVienMuonNhat.ForeColor = System.Drawing.Color.White;
             this.btnSinhVienMuonNhat.Location = new System.Drawing.Point(1031, 3);

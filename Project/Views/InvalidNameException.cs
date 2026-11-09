@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Controllers
 {
-    public class  InvalidNameException : Exception
+    public class InvalidNameException : Exception
     {
+        public InvalidNameException()
+            : base("Họ tên không hợp lệ.")
+        {
+        }
+
+        public InvalidNameException(string message)
+            : base(message)
+        {
+        }
     }
 }

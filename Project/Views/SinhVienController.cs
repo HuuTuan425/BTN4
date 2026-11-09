@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Models;
 
 namespace Controllers
@@ -38,9 +39,13 @@ namespace Controllers
         public bool Them(string ma, string ten, DateTime ngaySinh, string email, string phone, string chuyenNganh, out string error)
         {
             error = string.Empty;
-            if (string.IsNullOrWhiteSpace(ma) || string.IsNullOrWhiteSpace(ten)) { error = "Mã sinh viên và họ tên không được để trống."; return false; }
             try
             {
+                ValidateMaSinhVien(ma);
+                ValidateHoTen(ten);
+                ValidateEmail(email);
+                ValidateSoDienThoai(phone);
+
                 using (var cn = AppData.OpenConnection())
                 using (var cmd = new SqlCommand("INSERT INTO SinhVien(MaSinhVien,HoTen,NgaySinh,Email,SoDienThoai,ChuyenNganh) VALUES(@ma,@ten,@ngay,@email,@phone,@cn)", cn))
                 {
@@ -49,14 +54,47 @@ namespace Controllers
                 }
                 return true;
             }
+            catch (InvalidMSVException ex) { error = ex.Message; return false; }
+            catch (InvalidNameException ex) { error = ex.Message; return false; }
+            catch (InvalidEmailException ex) { error = ex.Message; return false; }
+            catch (InvalidPhoneException ex) { error = ex.Message; return false; }
             catch (SqlException ex) { error = ex.Number == 2627 ? "Mã sinh viên đã tồn tại." : ex.Message; return false; }
         }
 
         public bool SuaTen(string ma, string ten, out string error)
         {
-            error = string.Empty; if (string.IsNullOrWhiteSpace(ten)) { error = "Họ tên không được để trống."; return false; }
-            try { using (var cn = AppData.OpenConnection()) using (var cmd = new SqlCommand("UPDATE SinhVien SET HoTen=@ten WHERE MaSinhVien=@ma", cn)) { cmd.Parameters.AddWithValue("@ten", ten.Trim()); cmd.Parameters.AddWithValue("@ma", ma.Trim()); if (cmd.ExecuteNonQuery() == 0) { error = "Không tìm thấy sinh viên theo mã đã nhập."; return false; } return true; } }
+            error = string.Empty;
+            try
+            {
+                ValidateHoTen(ten);
+                using (var cn = AppData.OpenConnection()) using (var cmd = new SqlCommand("UPDATE SinhVien SET HoTen=@ten WHERE MaSinhVien=@ma", cn)) { cmd.Parameters.AddWithValue("@ten", ten.Trim()); cmd.Parameters.AddWithValue("@ma", ma.Trim()); if (cmd.ExecuteNonQuery() == 0) { error = "Không tìm thấy sinh viên theo mã đã nhập."; return false; } return true; }
+            }
+            catch (InvalidNameException ex) { error = ex.Message; return false; }
             catch (Exception ex) { error = ex.Message; return false; }
+        }
+
+        private static void ValidateMaSinhVien(string ma)
+        {
+            if (string.IsNullOrWhiteSpace(ma) || !Regex.IsMatch(ma.Trim(), "^[A-Za-z0-9]+$"))
+                throw new InvalidMSVException();
+        }
+
+        private static void ValidateHoTen(string ten)
+        {
+            if (string.IsNullOrWhiteSpace(ten))
+                throw new InvalidNameException();
+        }
+
+        private static void ValidateEmail(string email)
+        {
+            if (!string.IsNullOrWhiteSpace(email) && !Regex.IsMatch(email.Trim(), "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"))
+                throw new InvalidEmailException();
+        }
+
+        private static void ValidateSoDienThoai(string phone)
+        {
+            if (!string.IsNullOrWhiteSpace(phone) && !Regex.IsMatch(phone.Trim(), "^0\\d{9,10}$"))
+                throw new InvalidPhoneException();
         }
 
         public bool Xoa(string ma, out string error)

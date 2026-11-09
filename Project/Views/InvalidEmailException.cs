@@ -8,6 +8,14 @@ namespace Controllers
 {
     public class InvalidEmailException : Exception
     {
+        public InvalidEmailException()
+            : base("Email không hợp lệ.")
+        {
+        }
 
+        public InvalidEmailException(string message)
+            : base(message)
+        {
+        }
     }
 }

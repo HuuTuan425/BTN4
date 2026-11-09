@@ -17,7 +17,39 @@ namespace Project
         public Home()
         {
             InitializeComponent();
+            ConfigureResponsiveLayout();
             UpdateStatistics();
+        }
+
+        private void ConfigureResponsiveLayout()
+        {
+            MinimumSize = new Size(900, 600);
+
+            pnlHeader.Dock = DockStyle.Top;
+            pnlMenu.Dock = DockStyle.Left;
+            pnlContent.Dock = DockStyle.Fill;
+
+            btnThoat.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            btnSinhVien.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+            btnMonHoc.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+            btnDangKy.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+
+            pnlCardSinhVien.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            pnlCardMonHoc.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            pnlCardDangKy.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+
+            lblTitle.AutoSize = false;
+            lblTitle.Dock = DockStyle.Fill;
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            pnlHeader.Resize += HomeHeader_Resize;
+            HomeHeader_Resize(null, EventArgs.Empty);
+        }
+
+        private void HomeHeader_Resize(object sender, EventArgs e)
+        {
+            if (lblTitle == null || pnlHeader == null) return;
+
+            lblTitle.BringToFront();
         }
 
         private void UpdateStatistics()
@@ -67,6 +99,11 @@ namespace Project
         }
 
         private void pnlCardDangKy_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pnlContent_Paint(object sender, PaintEventArgs e)
         {
 
         }

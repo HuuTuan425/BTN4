@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Controllers;
@@ -8,6 +9,9 @@ namespace Project
     public partial class SinhVien : Form
     {
         private readonly SinhVienController controller = new SinhVienController();
+        private readonly DangKyMonHocController dangKyController = new DangKyMonHocController();
+        private readonly Label lblListStatus = new Label();
+        private List<Models.SinhVien> danhSachGoc = new List<Models.SinhVien>();
         private readonly ListBox lstSinhVienGoiY = new ListBox();
         private bool dangChonGoiY;
 
@@ -15,7 +19,128 @@ namespace Project
         {
             InitializeComponent();
             ConfigureSearchSuggestions();
-            RefreshGrid(controller.GetAll());
+            ConfigureListStatus();
+            ConfigureResponsiveLayout();
+            Load += SinhVien_LayoutLoad;
+            Resize += SinhVien_Resize;
+            danhSachGoc = controller.GetAll();
+            RefreshGrid(danhSachGoc);
+            UpdateListStatus();
+        }
+
+        private void ConfigureResponsiveLayout()
+        {
+            MinimumSize = new System.Drawing.Size(900, 600);
+
+            pnlHeader.Dock = DockStyle.Top;
+            pnlAdvanced.Dock = DockStyle.None;
+            pnlInput.Dock = DockStyle.None;
+            pnlList.Dock = DockStyle.None;
+            pnlList.Padding = new Padding(0, 0, 10, 15);
+            pnlList.BorderStyle = BorderStyle.None;
+            pnlAdvanced.BringToFront();
+            pnlList.BringToFront();
+
+            dgvSinhVien.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dgvSinhVien.BorderStyle = BorderStyle.FixedSingle;
+            dgvSinhVien.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dgvSinhVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSinhVien.GridColor = System.Drawing.Color.Gray;
+            lblListStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtTimKiem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnTimKiem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lstSinhVienGoiY.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pnlList.Resize += SinhVienList_Resize;
+
+            lblTitle.AutoSize = false;
+            lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            pnlHeader.Resize += SinhVienHeader_Resize;
+            LayoutResponsivePanels();
+            LayoutGrid();
+            LayoutHeaderTitle();
+        }
+
+        private void SinhVien_LayoutLoad(object sender, EventArgs e)
+        {
+            BeginInvoke(new MethodInvoker(LayoutGrid));
+        }
+
+        private void SinhVien_Resize(object sender, EventArgs e)
+        {
+            LayoutResponsivePanels();
+            LayoutGrid();
+            LayoutHeaderTitle();
+        }
+
+        private void SinhVienList_Resize(object sender, EventArgs e)
+        {
+            LayoutGrid();
+        }
+
+        private void SinhVienHeader_Resize(object sender, EventArgs e)
+        {
+            LayoutHeaderTitle();
+        }
+
+        private void LayoutResponsivePanels()
+        {
+            if (pnlHeader == null || pnlInput == null || pnlList == null || pnlAdvanced == null) return;
+
+            int headerHeight = pnlHeader.Height;
+            int advancedHeight = pnlAdvanced.Height;
+            int contentHeight = Math.Max(0, ClientSize.Height - headerHeight - advancedHeight);
+            int inputWidth = pnlInput.Width;
+
+            pnlAdvanced.Location = new System.Drawing.Point(0, ClientSize.Height - advancedHeight);
+            pnlAdvanced.Size = new System.Drawing.Size(ClientSize.Width, advancedHeight);
+            pnlInput.Location = new System.Drawing.Point(0, headerHeight);
+            pnlInput.Size = new System.Drawing.Size(inputWidth, contentHeight);
+            pnlList.Location = new System.Drawing.Point(inputWidth, headerHeight);
+            pnlList.Size = new System.Drawing.Size(Math.Max(0, ClientSize.Width - inputWidth), contentHeight);
+        }
+
+        private void LayoutGrid()
+        {
+            if (pnlList == null || dgvSinhVien == null) return;
+
+            dgvSinhVien.Location = new System.Drawing.Point(18, 80);
+            dgvSinhVien.Size = new System.Drawing.Size(
+                Math.Max(0, pnlList.ClientSize.Width - 31),
+                Math.Max(0, pnlList.ClientSize.Height - dgvSinhVien.Top - 20));
+
+            btnTimKiem.Location = new System.Drawing.Point(
+                Math.Max(0, pnlList.ClientSize.Width - btnTimKiem.Width - 10),
+                btnTimKiem.Top);
+            txtTimKiem.Location = new System.Drawing.Point(
+                Math.Max(0, btnTimKiem.Left - txtTimKiem.Width - 6),
+                txtTimKiem.Top);
+        }
+
+        private void LayoutHeaderTitle()
+        {
+            if (pnlHeader == null || lblTitle == null) return;
+
+            lblTitle.Location = new System.Drawing.Point(0, 0);
+            lblTitle.Size = pnlHeader.ClientSize;
+            lblTitle.BringToFront();
+            btnBackHome.BringToFront();
+            picLogo.BringToFront();
+        }
+
+        private void ConfigureListStatus()
+        {
+            lblListStatus.AutoSize = false;
+            lblListStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(80, 80, 80);
+            lblListStatus.Location = new System.Drawing.Point(18, 54);
+            lblListStatus.Size = new System.Drawing.Size(740, 22);
+            lblListStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            pnlList.Controls.Add(lblListStatus);
+            lblListStatus.BringToFront();
+
+            dgvSinhVien.Location = new System.Drawing.Point(18, 80);
+            dgvSinhVien.Size = new System.Drawing.Size(740, 397);
         }
 
         private void ConfigureSearchSuggestions()
@@ -95,12 +220,26 @@ namespace Project
 
         private void btnSinhVienDangKyNhieuNhat_Click(object sender, EventArgs e)
         {
-            ShowStudents(controller.TimDangKyNhieuNhat(), "Sinh viên đăng ký nhiều môn nhất");
+            List<Models.SinhVien> topStudents = controller.TimDangKyNhieuNhat();
+            RefreshGrid(topStudents);
+
+            int maxCourses = 0;
+            var registrations = dangKyController.GetAll();
+            if (registrations.Count > 0)
+                maxCourses = registrations.GroupBy(x => x.MaSinhVien).Max(x => x.Count());
+
+            lblListStatus.Text = topStudents.Count == 0
+                ? "Chưa có sinh viên đăng ký môn học."
+                : string.Format("Đang hiển thị các sinh viên đăng ký nhiều môn nhất ({0} môn)", maxCourses);
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(0, 123, 255);
+            SelectFirstStudent();
         }
 
         private void btnHienThiTatCa_Click(object sender, EventArgs e)
         {
-            RefreshGrid(controller.GetAll());
+            danhSachGoc = controller.GetAll();
+            RefreshGrid(danhSachGoc);
+            UpdateListStatus();
         }
 
         private void RefreshGrid(object data)
@@ -123,7 +262,9 @@ namespace Project
             string error;
             if (controller.Them(txtMaSinhVien.Text, txtHoTen.Text, dtpNgaySinh.Value, txtEmail.Text, txtSoDienThoai.Text, txtChuyenNganh.Text, out error))
             {
-                RefreshGrid(controller.GetAll());
+                danhSachGoc = controller.GetAll();
+                RefreshGrid(danhSachGoc);
+                UpdateListStatus();
                 btnLamMoi_Click(sender, e);
                 MessageBox.Show("Đã thêm sinh viên.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -135,7 +276,9 @@ namespace Project
             string error;
             if (controller.SuaTen(txtMaSinhVien.Text, txtHoTen.Text, out error))
             {
-                RefreshGrid(controller.GetAll());
+                danhSachGoc = controller.GetAll();
+                RefreshGrid(danhSachGoc);
+                UpdateListStatus();
                 MessageBox.Show("Đã sửa họ tên sinh viên.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show(error, "Không thể sửa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -146,7 +289,9 @@ namespace Project
             string error;
             if (controller.Xoa(txtMaSinhVien.Text, out error))
             {
-                RefreshGrid(controller.GetAll());
+                danhSachGoc = controller.GetAll();
+                RefreshGrid(danhSachGoc);
+                UpdateListStatus();
                 btnLamMoi_Click(sender, e);
                 MessageBox.Show("Đã xóa sinh viên và các bản đăng ký liên quan.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -156,16 +301,44 @@ namespace Project
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             txtTimKiem.Clear();
-            RefreshGrid(controller.GetAll());
+            danhSachGoc = controller.GetAll();
+            RefreshGrid(danhSachGoc);
+            UpdateListStatus();
             dgvSinhVien.ClearSelection();
-            txtMaSinhVien.Clear(); txtHoTen.Clear(); txtEmail.Clear(); txtSoDienThoai.Clear(); txtChuyenNganh.Clear();
-            dtpNgaySinh.Value = DateTime.Today;
+            ClearInputs();
             txtMaSinhVien.Focus();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             RefreshGrid(controller.TimGanDung(txtTimKiem.Text));
+            lblListStatus.Text = string.Format("Đang hiển thị {0} sinh viên phù hợp.", dgvSinhVien.Rows.Count);
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(80, 80, 80);
+        }
+
+        private void UpdateListStatus()
+        {
+            lblListStatus.Text = string.Format("Tổng số sinh viên: {0}", danhSachGoc.Count);
+            lblListStatus.ForeColor = System.Drawing.Color.FromArgb(80, 80, 80);
+        }
+
+        private void SelectFirstStudent()
+        {
+            if (dgvSinhVien.Rows.Count == 0) return;
+
+            dgvSinhVien.ClearSelection();
+            dgvSinhVien.CurrentCell = dgvSinhVien.Rows[0].Cells[0];
+            dgvSinhVien.Rows[0].Selected = true;
+        }
+
+        private void ClearInputs()
+        {
+            txtMaSinhVien.Clear();
+            txtHoTen.Clear();
+            txtEmail.Clear();
+            txtSoDienThoai.Clear();
+            txtChuyenNganh.Clear();
+            dtpNgaySinh.Value = DateTime.Today;
         }
 
         private void dgvSinhVien_SelectionChanged(object sender, EventArgs e)
@@ -190,12 +363,6 @@ namespace Project
             dgvSinhVien.CurrentCell = null;
         }
 
-        private void ShowStudents(System.Collections.Generic.List<Models.SinhVien> students, string title)
-        {
-            if (students.Count == 0) { MessageBox.Show("Chưa có dữ liệu.", title, MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
-            MessageBox.Show(string.Join(Environment.NewLine, students.Select(x => x.MaSinhVien + " - " + x.HoTen)), title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void lblListTitle_Click(object sender, EventArgs e) { }
         private void lblSoDienThoai_Click(object sender, EventArgs e) { }
         private void txtHoTen_TextChanged(object sender, EventArgs e) { }
@@ -207,6 +374,11 @@ namespace Project
         }
 
         private void SinhVien_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblEmail_Click(object sender, EventArgs e)
         {
 
         }
